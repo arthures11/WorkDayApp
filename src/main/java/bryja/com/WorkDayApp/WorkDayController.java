@@ -1,36 +1,87 @@
 package bryja.com.WorkDayApp;
 
+import java.sql.Time;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.hibernate.jdbc.Work;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 class WorkDayController {
 
     private final WorkDayRepository repository;
+    private final TimeEntryRepository entries_repository;
 
-    WorkDayController(WorkDayRepository repository) {
+    WorkDayController(WorkDayRepository repository, TimeEntryRepository entries_repository) {
         this.repository = repository;
+        this.entries_repository = entries_repository;
     }
 
+
     @GetMapping("/workdays")
-    List<WorkDay> all() {
-        return repository.findAll();
+    CollectionModel<EntityModel<WorkDay>> all() {
+
+        List<EntityModel<WorkDay>> workdays = repository.findAll().stream()
+                .map(workday -> EntityModel.of(workday,
+                        linkTo(methodOn(WorkDayController.class).one(workday.getId())).withSelfRel(),
+                        linkTo(methodOn(WorkDayController.class).all()).withRel("workdays")))
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(workdays, linkTo(methodOn(WorkDayController.class).all()).withSelfRel());
     }
     @PostMapping("/workdays")
     WorkDay newWorkDay(@RequestBody WorkDay newWorkDay) {
         return repository.save(newWorkDay);
     }
-    @GetMapping("/workdays/{id}")
-    WorkDay one(@PathVariable Long id) {
 
-        return repository.findById(id)
-                .orElseThrow(() -> new WorkDayNotFoundException(id));
+    @PostMapping("/workdays/{id}/entries")
+    void e(@RequestBody TimeEntry entry, @PathVariable Long id) {
+            WorkDay WorkDay = repository.findById(id)
+                    .orElseThrow(() -> new WorkDayNotFoundException(id));
+            WorkDay.TimeEntry.add(new TimeEntry(entry.description, entry.time_spent));
+            WorkDay.date = "abc";
+            repository.save(WorkDay);
+
+        TimeEntry TimeEntry = repository.findById(id).map(workday -> {
+            entry.setWorkday(workday);
+            return entries_repository.save(entry);
+        }).orElseThrow(() -> new WorkDayNotFoundException(id));
+       // return new ResponseEntity<>(comment, HttpStatus.CREATED);
+
     }
 
+
+    @GetMapping("/workdays/{id}")
+    EntityModel<WorkDay> one(@PathVariable Long id) {
+
+        WorkDay WorkDay = repository.findById(id) //
+                .orElseThrow(() -> new WorkDayNotFoundException(id));
+
+        return EntityModel.of(WorkDay, //
+                linkTo(methodOn(WorkDayController.class).one(id)).withSelfRel(),
+                linkTo(methodOn(WorkDayController.class).all()).withRel("workdays"));
+    }
+    @GetMapping("/workdays/{id}/entries")
+    List<TimeEntry> b(@PathVariable Long id) {
+        WorkDay WorkDay = repository.findById(id) //
+                .orElseThrow(() -> new WorkDayNotFoundException(id));
+        List<TimeEntry> entries = WorkDay.TimeEntry;
+        return entries;
+
+        }
+
+
+
     @PutMapping("/workdays/{id}")
-    WorkDay replaceEmployee(@RequestBody WorkDay newWorkDay, @PathVariable Long id) {
+    WorkDay replaceWorkDay(@RequestBody WorkDay newWorkDay, @PathVariable Long id) {
 
         return repository.findById(id)
                 .map(employee -> {

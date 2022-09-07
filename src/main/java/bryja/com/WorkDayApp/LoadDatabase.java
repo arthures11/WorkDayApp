@@ -16,7 +16,7 @@ class LoadDatabase {
 
         return args -> {
            // log.info("Preloading " + repository.save(new WorkDay("1111")));
-            log.info("Preloading " + repository.save(new WorkDay("2222")));
+            log.info("Preloading " + repository.save(new WorkDay("07.09.2022")));
         };
     }
 }

@@ -7,10 +7,11 @@ import java.util.*;
 
 import javax.persistence.*;
 @Entity
+@Table(name="WORKDAY")
 public class WorkDay {
     private @Id @GeneratedValue Long id;
-    private String date;
-    @Embedded
+    public String date;
+    @OneToMany(mappedBy="workday")
     public List<TimeEntry> TimeEntry = new ArrayList<>();
     WorkDay(){
     }
