@@ -10,17 +10,26 @@ import javax.persistence.*;
 public class WorkDay {
     private @Id @GeneratedValue Long id;
     private String date;
-    public @ElementCollection List<TimeEntry> TimeE = new ArrayList<>();
+    @Embedded
+    public List<TimeEntry> TimeEntry = new ArrayList<>();
     WorkDay(){
-
     }
     WorkDay(String date) {
         this.date = date;
     }
+    public String getDate() {
+        return this.date;
+    }
+
     public Long getId() {
         return this.id;
     }
-    public String getDate() {
-        return this.date;
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
