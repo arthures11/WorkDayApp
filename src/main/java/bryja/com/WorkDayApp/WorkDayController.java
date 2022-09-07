@@ -39,7 +39,13 @@ class WorkDayController {
     }
     @PostMapping("/workdays")
     WorkDay newWorkDay(@RequestBody WorkDay newWorkDay) {
-        return repository.save(newWorkDay);
+        GregorianDateMatcher datematch = new GregorianDateMatcher();
+        if(datematch.matches(newWorkDay.date)){
+            return repository.save(newWorkDay);
+        }
+        else {
+            throw new WorkDayNotFoundException(newWorkDay.date);
+        }
     }
 
     @PostMapping("/workdays/{id}/entries")
@@ -47,8 +53,8 @@ class WorkDayController {
             WorkDay WorkDay = repository.findById(id)
                     .orElseThrow(() -> new WorkDayNotFoundException(id));
             WorkDay.TimeEntry.add(new TimeEntry(entry.description, entry.time_spent));
-            WorkDay.date = "abc";
-            repository.save(WorkDay);
+          //  WorkDay.date = "abc";
+          //  repository.save(WorkDay);
 
         TimeEntry TimeEntry = repository.findById(id).map(workday -> {
             entry.setWorkday(workday);
@@ -56,6 +62,21 @@ class WorkDayController {
         }).orElseThrow(() -> new WorkDayNotFoundException(id));
        // return new ResponseEntity<>(comment, HttpStatus.CREATED);
 
+    }
+
+    @PutMapping("/workdays/{id}/entries/{id2}")
+    void replaceTimeEntry(@RequestBody TimeEntry entry, @PathVariable Long id,@PathVariable Long id2) {
+        repository.findById(id)
+                .map(timeentry -> {
+                    if(id2>timeentry.TimeEntry.size()){  //nie dziala idk why
+                        throw new EntryNotFoundException(id);
+                    }
+                    timeentry.TimeEntry.get((int) (id2 - 1)).time_spent = entry.time_spent;
+                    timeentry.TimeEntry.get((int) (id2 - 1)).description = entry.description;
+                    entry.setWorkday(timeentry);
+                    return repository.save(timeentry);
+                })
+                .orElseThrow(() -> new WorkDayNotFoundException(id));
     }
 
 
@@ -95,7 +116,7 @@ class WorkDayController {
     }
 
     @DeleteMapping("/workdays/{id}")
-    void deleteEmployee(@PathVariable Long id) {
+    void deleteWorkDay(@PathVariable Long id) {
         repository.deleteById(id);
     }
 }
