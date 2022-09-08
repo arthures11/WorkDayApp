@@ -123,6 +123,8 @@ class WorkDayController {
 
     @DeleteMapping("/workdays/{id}")
     void deleteWorkDay(@PathVariable Long id) {
+        WorkDay WorkDay = repository.findById(id) //
+                .orElseThrow(() -> new WorkDayNotFoundException(id));
         repository.deleteById(id);
     }
 }
