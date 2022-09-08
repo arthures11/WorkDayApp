@@ -103,16 +103,22 @@ class WorkDayController {
 
     @PutMapping("/workdays/{id}")
     WorkDay replaceWorkDay(@RequestBody WorkDay newWorkDay, @PathVariable Long id) {
+        GregorianDateMatcher datematch = new GregorianDateMatcher();
+        if(datematch.matches(newWorkDay.date)){
+            return repository.findById(id)
+                    .map(employee -> {
+                        employee.setDate(newWorkDay.getDate());
+                        return repository.save(employee);
+                    })
+                    .orElseGet(() -> {
+                        newWorkDay.setId(id);
+                        return repository.save(newWorkDay);
+                    });
+        }
+        else{
+            throw new WorkDayNotFoundException(newWorkDay.date);
+        }
 
-        return repository.findById(id)
-                .map(employee -> {
-                    employee.setDate(newWorkDay.getDate());
-                    return repository.save(employee);
-                })
-                .orElseGet(() -> {
-                    newWorkDay.setId(id);
-                    return repository.save(newWorkDay);
-                });
     }
 
     @DeleteMapping("/workdays/{id}")
