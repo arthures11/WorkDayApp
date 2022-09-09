@@ -5,7 +5,7 @@ import java.util.*;
 import javax.persistence.*;
 @Entity
 public class WorkDay {
-    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
+    private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
     public String date;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "workday", cascade = CascadeType.ALL)
     private List<TimeEntry> TimeEntry;
