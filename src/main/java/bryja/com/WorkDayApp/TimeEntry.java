@@ -21,5 +21,12 @@ public class TimeEntry {
     public void setWorkday(WorkDay workday) {
         this.workday = workday;
     }
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
 }
