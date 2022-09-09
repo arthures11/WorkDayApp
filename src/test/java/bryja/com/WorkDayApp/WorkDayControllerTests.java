@@ -18,7 +18,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import org.junit.jupiter.api.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -31,7 +30,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @SpringBootTest
 @AutoConfigureMockMvc
 public class WorkDayControllerTests {
-
     @Autowired
     private MockMvc mvc;
     @Autowired
@@ -79,6 +77,24 @@ public class WorkDayControllerTests {
                         .content("{\"date\": \"2022-02-02\"}"))
                 .andDo(print())
                 .andExpect(status().is2xxSuccessful());
+
+    }
+    @Test
+    public void AddTimeEntry() throws Exception {
+        this.mvc.perform(post("/workdays/1/entries")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"description\": \"Opis\", \"time_spent\": 5555}"))
+                .andDo(print())
+                .andExpect(status().is2xxSuccessful());
+
+    }
+    @Test
+    public void AddTimeEntryToWorkDayThatDoesNotExists() throws Exception {
+        this.mvc.perform(post("/workdays/55/entries")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"description\": \"Opis\", \"time_spent\": 5555}"))
+                .andDo(print())
+                .andExpect(status().is4xxClientError());
 
     }
     @Test
