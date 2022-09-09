@@ -52,7 +52,7 @@ class WorkDayController {
     void e(@RequestBody TimeEntry entry, @PathVariable Long id) {
             WorkDay WorkDay = repository.findById(id)
                     .orElseThrow(() -> new WorkDayNotFoundException(id));
-            WorkDay.TimeEntry.add(new TimeEntry(entry.description, entry.time_spent));
+            WorkDay.getTimeEntry().add(new TimeEntry(entry.description, entry.time_spent));
           //  WorkDay.date = "abc";
           //  repository.save(WorkDay);
 
@@ -68,11 +68,11 @@ class WorkDayController {
     void replaceTimeEntry(@RequestBody TimeEntry entry, @PathVariable Long id,@PathVariable Long id2) {
         repository.findById(id)
                 .map(timeentry -> {
-                    if(id2>timeentry.TimeEntry.size()){  //nie dziala idk why
+                    if(id2>timeentry.getTimeEntry().size()){  //nie dziala idk why
                         throw new EntryNotFoundException(id);
                     }
-                    timeentry.TimeEntry.get((int) (id2 - 1)).time_spent = entry.time_spent;
-                    timeentry.TimeEntry.get((int) (id2 - 1)).description = entry.description;
+                    timeentry.getTimeEntry().get((int) (id2 - 1)).time_spent = entry.time_spent;
+                    timeentry.getTimeEntry().get((int) (id2 - 1)).description = entry.description;
                     entry.setWorkday(timeentry);
                     return repository.save(timeentry);
                 })
@@ -94,8 +94,7 @@ class WorkDayController {
     List<TimeEntry> b(@PathVariable Long id) {
         WorkDay WorkDay = repository.findById(id) //
                 .orElseThrow(() -> new WorkDayNotFoundException(id));
-        List<TimeEntry> entries = WorkDay.TimeEntry;
-        return entries;
+        return WorkDay.getTimeEntry();
 
         }
 
@@ -122,9 +121,12 @@ class WorkDayController {
     }
 
     @DeleteMapping("/workdays/{id}")
-    void deleteWorkDay(@PathVariable Long id) {
+    void deleteWorkDay(@PathVariable("id") Long id) {
         WorkDay WorkDay = repository.findById(id) //
                 .orElseThrow(() -> new WorkDayNotFoundException(id));
+        if(!WorkDay.getTimeEntry().isEmpty()){
+          //  WorkDay.getTimeEntry().clear();
+        }
         repository.deleteById(id);
     }
 }

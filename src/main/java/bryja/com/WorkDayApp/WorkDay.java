@@ -1,18 +1,14 @@
 package bryja.com.WorkDayApp;
 
-import bryja.com.WorkDayApp.TimeEntry;
-
-import java.sql.Time;
 import java.util.*;
 
 import javax.persistence.*;
 @Entity
-@Table(name="WORKDAY")
 public class WorkDay {
-    private @Id @GeneratedValue Long id;
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     public String date;
-    @OneToMany(mappedBy="workday")
-    public List<TimeEntry> TimeEntry = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "workday", cascade = CascadeType.ALL)
+    private List<TimeEntry> TimeEntry;
     WorkDay(){
     }
     WorkDay(String date) {
@@ -32,5 +28,11 @@ public class WorkDay {
 
     public void setDate(String date) {
         this.date = date;
+    }
+    public void setTimeEntry(TimeEntry entry) {
+        this.TimeEntry = (List<TimeEntry>) entry;
+    }
+    public List<TimeEntry> getTimeEntry(){
+        return TimeEntry;
     }
 }

@@ -3,13 +3,12 @@ package bryja.com.WorkDayApp;
 import javax.persistence.*;
 
 @Entity
-@Table(name="TIMEENTRY")
 public class TimeEntry {
-    private @Id @GeneratedValue Long id;
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     public String description;
     public int time_spent;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "workday_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="workday_id")
     private WorkDay workday;
     TimeEntry(){
 
@@ -22,4 +21,5 @@ public class TimeEntry {
     public void setWorkday(WorkDay workday) {
         this.workday = workday;
     }
+
 }
