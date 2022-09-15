@@ -31,7 +31,7 @@ public class WorkDayController {
 
 
     @GetMapping("/workdays")
-    List<WorkDay> all() {
+    List<WorkDay> showAllWorkdays() {
         return repository.findAll();
     }
     @PostMapping("/workdays")
@@ -46,7 +46,7 @@ public class WorkDayController {
     }
 
     @PostMapping("/workdays/{id}/entries")
-    void e(@RequestBody TimeEntry entry, @PathVariable Long id) {
+    void addEntryToWorkday(@RequestBody TimeEntry entry, @PathVariable Long id) {
             WorkDay WorkDay = repository.findById(id)
                     .orElseThrow(() -> new WorkDayNotFoundException(id));
            // WorkDay.getTimeEntry().add(new TimeEntry(entry.description, entry.time_spent));
@@ -62,7 +62,7 @@ public class WorkDayController {
     }
 
     @PutMapping("/workdays/{id}/entries/{id2}")
-    void replaceTimeEntry(@RequestBody TimeEntry entry, @PathVariable Long id,@PathVariable Long id2) {
+    void updateTimeEntry(@RequestBody TimeEntry entry, @PathVariable Long id,@PathVariable Long id2) {
 
         repository.findById(id).orElseThrow(() -> new WorkDayNotFoundException(id));
         entries_repository.findById(id2).map(timeEntry -> {
@@ -75,17 +75,17 @@ public class WorkDayController {
 
 
     @GetMapping("/workdays/{id}")
-    EntityModel<WorkDay> one(@PathVariable Long id) {
+    EntityModel<WorkDay> showSpecificWorkday(@PathVariable Long id) {
 
         WorkDay WorkDay = repository.findById(id) //
                 .orElseThrow(() -> new WorkDayNotFoundException(id));
 
         return EntityModel.of(WorkDay, //
-                linkTo(methodOn(WorkDayController.class).one(id)).withSelfRel(),
-                linkTo(methodOn(WorkDayController.class).all()).withRel("workdays"));
+                linkTo(methodOn(WorkDayController.class).showSpecificWorkday(id)).withSelfRel(),
+                linkTo(methodOn(WorkDayController.class).showAllWorkdays()).withRel("workdays"));
     }
     @GetMapping("/workdays/{id}/entries")
-    List<TimeEntry> b(@PathVariable Long id) {
+    List<TimeEntry> showSpecificEntries(@PathVariable Long id) {
         WorkDay WorkDay = repository.findById(id) //
                 .orElseThrow(() -> new WorkDayNotFoundException(id));
         return WorkDay.getTimeEntry();
@@ -95,7 +95,7 @@ public class WorkDayController {
 
 
     @PutMapping("/workdays/{id}")
-    WorkDay replaceWorkDay(@RequestBody WorkDay newWorkDay, @PathVariable Long id) {
+    WorkDay updateWorkDay(@RequestBody WorkDay newWorkDay, @PathVariable Long id) {
         GregorianDateMatcher datematch = new GregorianDateMatcher();
         if(datematch.matches(newWorkDay.date)){
             return repository.findById(id)
