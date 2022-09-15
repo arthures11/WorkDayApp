@@ -1,6 +1,4 @@
-package bryja.com.WorkDayApp;
-
-import net.minidev.json.annotate.JsonIgnore;
+package bryja.com.WorkDayApp.Classes;
 
 import javax.persistence.*;
 

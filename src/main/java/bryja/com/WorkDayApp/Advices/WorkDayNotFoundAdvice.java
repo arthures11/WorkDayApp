@@ -1,4 +1,5 @@
-package bryja.com.WorkDayApp;
+package bryja.com.WorkDayApp.Advices;
+import bryja.com.WorkDayApp.Exceptions.WorkDayNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -6,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-class EntryNotFoundAdvice {
+class WorkDayNotFoundAdvice {
 
     @ResponseBody
     @ExceptionHandler(WorkDayNotFoundException.class)

@@ -1,4 +1,4 @@
-package bryja.com.WorkDayApp;
+package bryja.com.WorkDayApp.Exceptions;
 
 public class WorkDayNotFoundException extends RuntimeException {
     public WorkDayNotFoundException(Long id) {

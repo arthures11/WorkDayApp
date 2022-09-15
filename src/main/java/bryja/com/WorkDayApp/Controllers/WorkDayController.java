@@ -1,21 +1,22 @@
-package bryja.com.WorkDayApp;
+package bryja.com.WorkDayApp.Controllers;
 
-import java.sql.Time;
 import java.util.*;
-import java.util.stream.Collectors;
 
-import org.hibernate.jdbc.Work;
-import org.springframework.hateoas.CollectionModel;
+import bryja.com.WorkDayApp.Classes.TimeEntry;
+import bryja.com.WorkDayApp.Classes.WorkDay;
+import bryja.com.WorkDayApp.Exceptions.EntryNotFoundException;
+import bryja.com.WorkDayApp.Exceptions.WorkDayNotFoundException;
+import bryja.com.WorkDayApp.Repository.TimeEntryRepository;
+import bryja.com.WorkDayApp.Repository.WorkDayRepository;
+import bryja.com.WorkDayApp.Utility.GregorianDateMatcher;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-class WorkDayController {
+public class WorkDayController {
 
     private final WorkDayRepository repository;
     private final TimeEntryRepository entries_repository;

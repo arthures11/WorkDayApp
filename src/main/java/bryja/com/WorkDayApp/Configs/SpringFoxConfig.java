@@ -1,4 +1,4 @@
-package bryja.com.WorkDayApp;
+package bryja.com.WorkDayApp.Configs;
 
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;

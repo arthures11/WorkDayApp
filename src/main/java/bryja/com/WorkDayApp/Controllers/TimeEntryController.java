@@ -1,14 +1,10 @@
-package bryja.com.WorkDayApp;
+package bryja.com.WorkDayApp.Controllers;
+import bryja.com.WorkDayApp.Repository.WorkDayRepository;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
+import bryja.com.WorkDayApp.Repository.TimeEntryRepository;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class TimeEntryController {

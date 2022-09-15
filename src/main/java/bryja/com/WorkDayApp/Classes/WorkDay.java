@@ -1,4 +1,6 @@
-package bryja.com.WorkDayApp;
+package bryja.com.WorkDayApp.Classes;
+
+import bryja.com.WorkDayApp.Classes.TimeEntry;
 
 import java.util.*;
 
@@ -8,10 +10,10 @@ public class WorkDay {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     public String date;
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "workday", cascade = CascadeType.ALL)
-    private List<TimeEntry> TimeEntry;
+    private List<bryja.com.WorkDayApp.Classes.TimeEntry> TimeEntry;
     WorkDay(){
     }
-    WorkDay(String date) {
+    public WorkDay(String date) {
         this.date = date;
     }
     public String getDate() {
