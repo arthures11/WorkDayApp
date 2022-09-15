@@ -65,12 +65,12 @@ public class WorkDayController {
     void replaceTimeEntry(@RequestBody TimeEntry entry, @PathVariable Long id,@PathVariable Long id2) {
 
         repository.findById(id).orElseThrow(() -> new WorkDayNotFoundException(id));
-
-
-        entries_repository.findById(id2).map(timeEntry -> {timeEntry.time_spent=entry.time_spent;
-        timeEntry.description=entry.description;
-        return entries_repository.save(timeEntry);})
-                .orElseThrow(() -> new WorkDayNotFoundException(id));;
+        entries_repository.findById(id2).map(timeEntry -> {
+            timeEntry.time_spent=entry.time_spent;
+            timeEntry.description=entry.description;
+            return entries_repository.save(timeEntry);}
+                )
+                .orElseThrow(() -> new WorkDayNotFoundException(id2));
     }
 
 
