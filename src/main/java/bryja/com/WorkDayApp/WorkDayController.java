@@ -27,15 +27,8 @@ class WorkDayController {
 
 
     @GetMapping("/workdays")
-    CollectionModel<EntityModel<WorkDay>> all() {
-
-        List<EntityModel<WorkDay>> workdays = repository.findAll().stream()
-                .map(workday -> EntityModel.of(workday,
-                        linkTo(methodOn(WorkDayController.class).one(workday.getId())).withSelfRel(),
-                        linkTo(methodOn(WorkDayController.class).all()).withRel("workdays")))
-                .collect(Collectors.toList());
-
-        return CollectionModel.of(workdays, linkTo(methodOn(WorkDayController.class).all()).withSelfRel());
+    List<WorkDay> all() {
+        return repository.findAll();
     }
     @PostMapping("/workdays")
     WorkDay newWorkDay(@RequestBody WorkDay newWorkDay) {
@@ -52,7 +45,7 @@ class WorkDayController {
     void e(@RequestBody TimeEntry entry, @PathVariable Long id) {
             WorkDay WorkDay = repository.findById(id)
                     .orElseThrow(() -> new WorkDayNotFoundException(id));
-            WorkDay.getTimeEntry().add(new TimeEntry(entry.description, entry.time_spent));
+           // WorkDay.getTimeEntry().add(new TimeEntry(entry.description, entry.time_spent));
           //  WorkDay.date = "abc";
           //  repository.save(WorkDay);
 
@@ -68,7 +61,7 @@ class WorkDayController {
     void replaceTimeEntry(@RequestBody TimeEntry entry, @PathVariable Long id,@PathVariable Long id2) {
         repository.findById(id)
                 .map(timeentry -> {
-                    if(id2>timeentry.getTimeEntry().size()){  //nie dziala idk why
+                    if(timeentry.getTimeEntry().stream().noneMatch(timeEntry -> Objects.equals(timeEntry.getId(),id2))){
                         throw new EntryNotFoundException(id);
                     }
                     timeentry.getTimeEntry().get((int) (id2 - 1)).time_spent = entry.time_spent;

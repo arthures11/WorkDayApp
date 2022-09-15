@@ -1,5 +1,7 @@
 package bryja.com.WorkDayApp;
 
+import net.minidev.json.annotate.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -8,7 +10,6 @@ public class TimeEntry {
     public String description;
     public int time_spent;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="workday_id")
     private WorkDay workday;
     TimeEntry(){
 
