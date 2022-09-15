@@ -1,5 +1,5 @@
 package bryja.com.WorkDayApp.Advices;
-import bryja.com.WorkDayApp.Exceptions.WorkDayNotFoundException;
+import bryja.com.WorkDayApp.Exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 class EntryNotFoundAdvice {
 
     @ResponseBody
-    @ExceptionHandler(WorkDayNotFoundException.class)
+    @ExceptionHandler(EntryNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String WorkDayNotFoundHandler(WorkDayNotFoundException ex) {
+    String EntryNotFoundHandler(EntryNotFoundException ex) {
         return ex.getMessage();
     }
 }

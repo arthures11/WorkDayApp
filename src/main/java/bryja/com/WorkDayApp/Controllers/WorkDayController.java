@@ -63,7 +63,7 @@ public class WorkDayController {
         repository.findById(id)
                 .map(timeentry -> {
                     if(timeentry.getTimeEntry().stream().noneMatch(timeEntry -> Objects.equals(timeEntry.getId(),id2))){
-                        throw new EntryNotFoundException(id);
+                        throw new EntryNotFoundException(id2);
                     }
                     timeentry.getTimeEntry().get((int) (id2 - 1)).time_spent = entry.time_spent;
                     timeentry.getTimeEntry().get((int) (id2 - 1)).description = entry.description;
