@@ -1,5 +1,6 @@
 package bryja.com.WorkDayApp.Controllers;
 
+import java.sql.Time;
 import java.util.*;
 
 import bryja.com.WorkDayApp.Classes.TimeEntry;
@@ -9,18 +10,20 @@ import bryja.com.WorkDayApp.Exceptions.WorkDayNotFoundException;
 import bryja.com.WorkDayApp.Repository.TimeEntryRepository;
 import bryja.com.WorkDayApp.Repository.WorkDayRepository;
 import bryja.com.WorkDayApp.Utility.GregorianDateMatcher;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.BeanUtils;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class WorkDayController {
-
     private final WorkDayRepository repository;
     private final TimeEntryRepository entries_repository;
-
+    @Autowired
     WorkDayController(WorkDayRepository repository, TimeEntryRepository entries_repository) {
         this.repository = repository;
         this.entries_repository = entries_repository;
@@ -60,17 +63,14 @@ public class WorkDayController {
 
     @PutMapping("/workdays/{id}/entries/{id2}")
     void replaceTimeEntry(@RequestBody TimeEntry entry, @PathVariable Long id,@PathVariable Long id2) {
-        repository.findById(id)
-                .map(timeentry -> {
-                    if(timeentry.getTimeEntry().stream().noneMatch(timeEntry -> Objects.equals(timeEntry.getId(),id2))){
-                        throw new EntryNotFoundException(id2);
-                    }
-                    timeentry.getTimeEntry().get((int) (id2 - 1)).time_spent = entry.time_spent;
-                    timeentry.getTimeEntry().get((int) (id2 - 1)).description = entry.description;
-                    entry.setWorkday(timeentry);
-                    return repository.save(timeentry);
-                })
-                .orElseThrow(() -> new WorkDayNotFoundException(id));
+
+        repository.findById(id).orElseThrow(() -> new WorkDayNotFoundException(id));
+
+
+        entries_repository.findById(id2).map(timeEntry -> {timeEntry.time_spent=entry.time_spent;
+        timeEntry.description=entry.description;
+        return entries_repository.save(timeEntry);})
+                .orElseThrow(() -> new WorkDayNotFoundException(id));;
     }
 
 

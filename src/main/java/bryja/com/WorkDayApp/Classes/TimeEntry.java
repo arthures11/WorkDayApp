@@ -4,10 +4,11 @@ import javax.persistence.*;
 
 @Entity
 public class TimeEntry {
-    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
+    private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
     public String description;
     public int time_spent;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "workday_id")
     private WorkDay workday;
     TimeEntry(){
 

@@ -2,6 +2,7 @@ package bryja.com.WorkDayApp.Classes;
 
 import bryja.com.WorkDayApp.Classes.TimeEntry;
 
+import java.sql.Time;
 import java.util.*;
 
 import javax.persistence.*;
@@ -9,8 +10,9 @@ import javax.persistence.*;
 public class WorkDay {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     public String date;
+    @ElementCollection
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "workday", cascade = CascadeType.ALL)
-    private List<bryja.com.WorkDayApp.Classes.TimeEntry> TimeEntry;
+    private List<TimeEntry> TimeEntry = new ArrayList<TimeEntry>();
     WorkDay(){
     }
     public WorkDay(String date) {
@@ -31,8 +33,8 @@ public class WorkDay {
     public void setDate(String date) {
         this.date = date;
     }
-    public void setTimeEntry(TimeEntry entry) {
-        this.TimeEntry = (List<TimeEntry>) entry;
+    public void setTimeEntry(List<TimeEntry> entry) {
+        this.TimeEntry =  entry;
     }
     public List<TimeEntry> getTimeEntry(){
         return TimeEntry;
