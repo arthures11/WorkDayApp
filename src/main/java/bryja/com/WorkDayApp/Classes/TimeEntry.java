@@ -7,17 +7,17 @@ public class TimeEntry {
     private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
     public String description;
     public int time_spent;
-    @ManyToOne
-    @JoinColumn(name = "workday_id")
-    private WorkDay workday;
+   // @ManyToOne
+    //@JoinColumn(name = "workday_id")
+    //private WorkDay workday;
 
-    public WorkDay getWorkday() {
-        return workday;
-    }
+   // public WorkDay getWorkday() {
+    //    return workday;
+   // }
 
-    public void setWorkday(WorkDay workday) {
-        this.workday = workday;
-    }
+   // public void setWorkday(WorkDay workday) {
+   //     this.workday = workday;
+   // }
 
     TimeEntry(){
 

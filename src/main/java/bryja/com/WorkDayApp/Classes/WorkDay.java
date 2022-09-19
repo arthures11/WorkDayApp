@@ -11,7 +11,7 @@ public class WorkDay {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     public String date;
     @ElementCollection
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "workday", cascade = CascadeType.ALL)
+    @OneToMany
     private List<TimeEntry> TimeEntry = new ArrayList<TimeEntry>();
     WorkDay(){
     }
