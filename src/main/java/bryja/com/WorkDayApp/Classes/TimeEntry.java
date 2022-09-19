@@ -4,25 +4,22 @@ import javax.persistence.*;
 
 @Entity
 public class TimeEntry {
-    private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     public String description;
     public int time_spent;
-   // @ManyToOne
-    //@JoinColumn(name = "workday_id")
-    //private WorkDay workday;
 
-   // public WorkDay getWorkday() {
-    //    return workday;
-   // }
+  //  public WorkDay getWorkday() {
+   //     return workday;
+  //  }
 
    // public void setWorkday(WorkDay workday) {
    //     this.workday = workday;
-   // }
+    //}
 
     TimeEntry(){
 
     }
-    TimeEntry(String description,int time_spent){
+    public TimeEntry(String description, int time_spent){
         this.description=description;
         this.time_spent=time_spent;
     }

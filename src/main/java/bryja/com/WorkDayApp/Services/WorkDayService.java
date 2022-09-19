@@ -46,15 +46,18 @@ public class WorkDayService {
         }
     }
     public void addEntryToWorkday(@RequestBody TimeEntry entry, @PathVariable Long id) {
+
         WorkDay WorkDay = repository.findById(id)
                 .orElseThrow(() -> new WorkDayNotFoundException(id));
-        // WorkDay.getTimeEntry().add(new TimeEntry(entry.description, entry.time_spent));
+       // entries_repository.save(new TimeEntry(entry.description, entry.time_spent));
         //  WorkDay.date = "abc";
-        //  repository.save(WorkDay);
+          //repository.save(WorkDay);
 
         TimeEntry TimeEntry = repository.findById(id).map(workday -> {
-           // entry.setWorkday(workday);
-            return entries_repository.save(entry);
+            //entry.setWorkday(workday);
+            TimeEntry abc = new TimeEntry(entry.description, entry.time_spent);
+            WorkDay.getTimeEntry().add(abc);
+            return entries_repository.save(abc);
         }).orElseThrow(() -> new WorkDayNotFoundException(id));
         // return new ResponseEntity<>(comment, HttpStatus.CREATED);
 

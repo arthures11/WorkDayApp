@@ -22,8 +22,10 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class WorkDayController {
+
     @Autowired
     private WorkDayService workDayService;
+
 
 
     @GetMapping("/workdays")
@@ -36,8 +38,8 @@ public class WorkDayController {
     }
 
     @PostMapping("/workdays/{id}/entries")
-    void addEntryToWorkday(@RequestBody TimeEntry entry, @PathVariable Long id) {
-         workDayService.addEntryToWorkday(entry,id);
+    public void addEntryToWorkday(@RequestBody TimeEntry entry, @PathVariable Long id) {
+        workDayService.addEntryToWorkday(entry,id);
     }
 
     @PutMapping("/workdays/{id}/entries/{id2}")
