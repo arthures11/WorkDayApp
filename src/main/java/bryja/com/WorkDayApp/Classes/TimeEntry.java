@@ -7,9 +7,18 @@ public class TimeEntry {
     private @Id @GeneratedValue(strategy = GenerationType.AUTO) Long id;
     public String description;
     public int time_spent;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "workday_id")
     private WorkDay workday;
+
+    public WorkDay getWorkday() {
+        return workday;
+    }
+
+    public void setWorkday(WorkDay workday) {
+        this.workday = workday;
+    }
+
     TimeEntry(){
 
     }
@@ -18,9 +27,9 @@ public class TimeEntry {
         this.time_spent=time_spent;
     }
 
-    public void setWorkday(WorkDay workday) {
-        this.workday = workday;
-    }
+  //  public void setWorkday(WorkDay workday) {
+  //      this.workday = workday;
+   // }
     public Long getId() {
         return this.id;
     }

@@ -53,7 +53,7 @@ public class WorkDayService {
         //  repository.save(WorkDay);
 
         TimeEntry TimeEntry = repository.findById(id).map(workday -> {
-            entry.setWorkday(workday);
+           // entry.setWorkday(workday);
             return entries_repository.save(entry);
         }).orElseThrow(() -> new WorkDayNotFoundException(id));
         // return new ResponseEntity<>(comment, HttpStatus.CREATED);
