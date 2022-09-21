@@ -104,7 +104,9 @@ public class WorkDayControllerTests {
     @Test
     public void DeleteWorkDay() throws Exception {
                 mvc.perform(MockMvcRequestBuilders.delete("/workdays/1"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+                mvc.perform(MockMvcRequestBuilders.get("/workdays/1"))
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
 
     }
     @Test
