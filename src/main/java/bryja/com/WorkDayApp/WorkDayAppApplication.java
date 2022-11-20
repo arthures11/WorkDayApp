@@ -21,6 +21,7 @@ public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
 	public static void main(String[] args) {
 		SpringApplication.run(WorkDayAppApplication.class, args);
 	}
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
@@ -29,16 +30,18 @@ public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
 						.antMatchers("/", "/error", "/webjars/**").permitAll()
 						.anyRequest().authenticated()
 				)
-				.logout(l -> l
-						.logoutSuccessUrl("/").permitAll()
-				)
 				.csrf(c -> c
 						.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 				)
+
 				.exceptionHandling(e -> e
 						.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
 				)
+				.logout(l -> l
+						.logoutSuccessUrl("/").permitAll()
+				)
 				.oauth2Login();
+
 		// @formatter:on
 
 	}
