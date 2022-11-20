@@ -39,13 +39,15 @@ public class WorkDayControllerTests {
     public void GetWorkdays() throws Exception {
         this.mvc
                 .perform(MockMvcRequestBuilders.get("/workdays"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                //.andExpect(status().is2xxSuccessful());
+                .andExpect(status().is4xxClientError());
     }
     @Test
     public void GetEntriesFromWorkDay() throws Exception {
         this.mvc
                 .perform(MockMvcRequestBuilders.get("/workdays/1/entries"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+                //.andExpect(status().is2xxSuccessful());
+                .andExpect(status().is4xxClientError());
     }
     @Test
     public void UpdateWorkDay() throws Exception {
@@ -53,7 +55,8 @@ public class WorkDayControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"date\": \"2022-08-04\"}"))
                 .andDo(print())
-                .andExpect(status().is2xxSuccessful());
+                //.andExpect(status().is4xxClientError());
+                .andExpect(status().isForbidden());
 
     }
     @Test
@@ -71,7 +74,8 @@ public class WorkDayControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"date\": \"2022-02-02\"}"))
                 .andDo(print())
-                .andExpect(status().is2xxSuccessful());
+                //.andExpect(status().is4xxClientError());
+                .andExpect(status().isForbidden());
 
     }
     @Test
@@ -80,7 +84,8 @@ public class WorkDayControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"description\": \"Opis\", \"time_spent\": 5555}"))
                 .andDo(print())
-                .andExpect(status().is2xxSuccessful());
+                //.andExpect(status().is4xxClientError());
+                .andExpect(status().isForbidden());
 
     }
     @Test
@@ -89,7 +94,8 @@ public class WorkDayControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"description\": \"Opis\", \"time_spent\": 5555}"))
                 .andDo(print())
-                .andExpect(status().is4xxClientError());
+                //.andExpect(status().is4xxClientError());
+                .andExpect(status().isForbidden());
 
     }
     @Test
@@ -104,9 +110,11 @@ public class WorkDayControllerTests {
     @Test
     public void DeleteWorkDay() throws Exception {
                 mvc.perform(MockMvcRequestBuilders.delete("/workdays/1"))
-                .andExpect(MockMvcResultMatchers.status().is2xxSuccessful());
+                        //.andExpect(status().is4xxClientError());
+                        .andExpect(status().isForbidden());
                 mvc.perform(MockMvcRequestBuilders.get("/workdays/1"))
-                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
+                        //.andExpect(status().is4xxClientError());
+                        .andExpect(status().is4xxClientError());
 
     }
     @Test
