@@ -17,6 +17,11 @@ import java.util.Map;
 @SpringBootApplication
 @RestController
 public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
+	String[] staticResources = {
+			"/css/**",
+			"/images/**",
+			"/fonts/**",
+			"/scripts/**",};
 
 	public static void main(String[] args) {
 		SpringApplication.run(WorkDayAppApplication.class, args);
@@ -28,6 +33,7 @@ public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
 		http
 				.authorizeRequests(a -> a
 						.antMatchers("/", "/error", "/webjars/**").permitAll()
+						.antMatchers(staticResources).permitAll()
 						.anyRequest().authenticated()
 				)
 				.csrf(c -> c

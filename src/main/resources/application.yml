@@ -1,6 +1,6 @@
 server:
   port:
-    8080
+    8082
 
 spring:
   security:
@@ -10,3 +10,6 @@ spring:
           github:
             clientId: a3abeca74ab538a3daa7
             clientSecret: 6f1b06794a914767d1d68a5ba12e85c94cd76f01
+          google:
+            client-id: 1053654382378-0ftd29n4b1rmrl2rven6be648sh6tdgn.apps.googleusercontent.com
+            client-secret: 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
