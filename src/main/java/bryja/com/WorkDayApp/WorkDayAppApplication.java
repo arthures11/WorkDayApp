@@ -19,6 +19,7 @@ import java.util.Map;
 public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
 	String[] staticResources = {
 			"/css/**",
+			"/assets/**",
 			"/images/**",
 			"/fonts/**",
 			"/scripts/**",};
