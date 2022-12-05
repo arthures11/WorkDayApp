@@ -13,3 +13,9 @@ spring:
           google:
             client-id: 1053654382378-0ftd29n4b1rmrl2rven6be648sh6tdgn.apps.googleusercontent.com
             client-secret: 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
+  h2:
+    console.enabled: true
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true

@@ -14,6 +14,22 @@ public class TimeEntry {
 
    // public void setWorkday(WorkDay workday) {
    //     this.workday = workday;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getTime_spent() {
+        return time_spent;
+    }
+
+    public void setTime_spent(int time_spent) {
+        this.time_spent = time_spent;
+    }
     //}
 
     TimeEntry(){

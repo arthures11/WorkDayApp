@@ -29,44 +29,44 @@ public class WorkDayController {
 
 
 
-    @GetMapping("/workdays")
+    @GetMapping(value="/workdays", consumes = {"*/*"})
     public List<WorkDay> showAllWorkdays() {
         return workDayService.showAllWorkdays();
     }
-    @PostMapping("/workdays")
+    @PostMapping(value="/workdays", consumes = {"application/json"})
     WorkDay newWorkDay(@RequestBody WorkDay newWorkDay) {
         return workDayService.newWorkDay(newWorkDay);
     }
 
-    @PostMapping("/workdays/{id}/entries")
+    @PostMapping(value="/workdays/{id}/entries", consumes = {"*/*"})
     public void addEntryToWorkday(@RequestBody TimeEntry entry, @PathVariable Long id) {
         workDayService.addEntryToWorkday(entry,id);
     }
 
-    @PutMapping("/workdays/{id}/entries/{id2}")
+    @PutMapping(value="/workdays/{id}/entries/{id2}", consumes = {"*/*"})
     void updateTimeEntry(@RequestBody TimeEntry entry, @PathVariable Long id,@PathVariable Long id2) {
         workDayService.updateTimeEntry(entry,id,id2);
     }
 
 
-    @GetMapping("/workdays/{id}")
+    @GetMapping(value="/workdays/{id}", consumes = {"*/*"})
     public EntityModel<WorkDay> showSpecificWorkday(@PathVariable Long id) {
         return workDayService.showSpecificWorkday(id);
     }
-    @GetMapping("/workdays/{id}/entries")
+    @GetMapping(value="/workdays/{id}/entries", consumes = {"*/*"})
     List<TimeEntry> showSpecificEntries(@PathVariable Long id) {
         return workDayService.showSpecificEntries(id);
         }
 
 
 
-    @PutMapping("/workdays/{id}")
+    @PutMapping(value="/workdays/{id}", consumes = {"*/*"})
     WorkDay updateWorkDay(@RequestBody WorkDay newWorkDay, @PathVariable Long id) {
         return workDayService.updateWorkDay(newWorkDay,id);
 
     }
 
-    @DeleteMapping("/workdays/{id}")
+    @DeleteMapping(value="/workdays/{id}", consumes = {"*/*"})
     void deleteWorkDay(@PathVariable("id") Long id) {
          workDayService.deleteWorkDay(id);
     }

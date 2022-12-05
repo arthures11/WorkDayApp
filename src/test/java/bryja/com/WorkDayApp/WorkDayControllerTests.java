@@ -55,8 +55,8 @@ public class WorkDayControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"date\": \"2022-08-04\"}"))
                 .andDo(print())
-                //.andExpect(status().is4xxClientError());
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
+                //.andExpect(status().isForbidden());
 
     }
     @Test
@@ -74,8 +74,8 @@ public class WorkDayControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"date\": \"2022-02-02\"}"))
                 .andDo(print())
-                //.andExpect(status().is4xxClientError());
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
+                //.andExpect(status().isForbidden());
 
     }
     @Test
@@ -84,8 +84,8 @@ public class WorkDayControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"description\": \"Opis\", \"time_spent\": 5555}"))
                 .andDo(print())
-                //.andExpect(status().is4xxClientError());
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
+               // .andExpect(status().isForbidden());
 
     }
     @Test
@@ -94,8 +94,8 @@ public class WorkDayControllerTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"description\": \"Opis\", \"time_spent\": 5555}"))
                 .andDo(print())
-                //.andExpect(status().is4xxClientError());
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
+                //.andExpect(status().isForbidden());
 
     }
     @Test
@@ -111,10 +111,10 @@ public class WorkDayControllerTests {
     public void DeleteWorkDay() throws Exception {
                 mvc.perform(MockMvcRequestBuilders.delete("/workdays/1"))
                         //.andExpect(status().is4xxClientError());
-                        .andExpect(status().isForbidden());
+                        .andExpect(status().isUnauthorized());
                 mvc.perform(MockMvcRequestBuilders.get("/workdays/1"))
                         //.andExpect(status().is4xxClientError());
-                        .andExpect(status().is4xxClientError());
+                        .andExpect(status().isUnauthorized());
 
     }
     @Test

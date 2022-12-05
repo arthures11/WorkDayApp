@@ -287,7 +287,17 @@
     $("#user").html(data.name);
     $(".unauthenticated").hide()
     $(".authenticated").show()
-    console.log(data.name)
+    fetch('/user/add', {
+      method: 'POST',
+      headers: {
+        'accept': '*/*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'email': data.email,
+        'name': data.name,
+      })
+    });
   });
 </script>
 <script>
@@ -315,5 +325,9 @@
     })
     return true;
   }
+
+  var logout = function() {
+  }
+
 </script>
 </html>
