@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>zmien ustawienia prywatności github aby udostępnić email w celu zarejestrowania konta</h2>
+<h2 id="result"></h2>
+<script>
+    window.onload = function() {
+        redirect();
+    };
+    function redirect () {
+        setTimeout(myURL, 5000);
+        var result = document.getElementById("result");
+        result.innerHTML = "<b> przekierowanie za 5 sekund";
+    }
+
+    function myURL() {
+        document.location.href = 'https://localhost:8088/';
+    }
+</script>
+</body>
+</html>

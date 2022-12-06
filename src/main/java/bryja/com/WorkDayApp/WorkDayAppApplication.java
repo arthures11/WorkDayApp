@@ -1,30 +1,46 @@
 package bryja.com.WorkDayApp;
 
 import bryja.com.WorkDayApp.Classes.User;
+import bryja.com.WorkDayApp.Controllers.UserController;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.DefaultOAuth2AuthenticatedPrincipal;
+import org.springframework.security.oauth2.core.OAuth2AuthenticatedPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 @SpringBootApplication
-@RestController
 @Configuration
+@RestController
 @EnableWebSecurity
 public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
+	@Value("/user/add")
+	private String successUrl;
+	@Value("/workdays")
+	private String failureUrl;
 	String[] staticResources = {
 			"/css/**",
 			"/assets/**",
@@ -42,7 +58,7 @@ public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
 		http
 				.csrf().disable()
 				.authorizeRequests(a -> a
-						.antMatchers("/", "/error", "/webjars/**").permitAll()
+						.antMatchers("/", "/error", "/webjars/**", "/githubprivacyerror.html").permitAll()
 						.antMatchers(staticResources).permitAll()
 						.anyRequest().authenticated()
 				)
@@ -52,10 +68,22 @@ public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
 				.logout(l -> l
 						.logoutSuccessUrl("/").permitAll()
 				)
-				.oauth2Login();
+				.oauth2Login()
+				.successHandler(successHandler())
+				.failureHandler(failureHandler());
 
 		// @formatter:on
 
+	}
+
+	@Bean
+	SimpleUrlAuthenticationSuccessHandler successHandler() {
+		return new SimpleUrlAuthenticationSuccessHandler(successUrl);
+	}
+
+	@Bean
+	SimpleUrlAuthenticationFailureHandler failureHandler() {
+		return new SimpleUrlAuthenticationFailureHandler(failureUrl);
 	}
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -68,6 +96,7 @@ public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
 		// @formatter:on
 
 	}
+
 	@GetMapping(value="/user", consumes = {"*/*"})
 	public User user(@AuthenticationPrincipal OAuth2User principal) {
 		String n = principal.getAttribute("name");

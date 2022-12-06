@@ -42,7 +42,7 @@
         </div>
       <div class="container authenticated" style="display:none">
           <div class="jumbotron" id="ZALOGOWANY">
-          <div>            <span class="navbar-text" style="margin-right: auto;">Witamy,&nbsp;<span id="user"></span>!&nbsp;&nbsp;</span><a class="btn btn-warning btn-lg" role="button" onClick="logout()" href="#" >LOGOUT</a></div>
+          <div>            <span class="navbar-text" style="margin-right: auto;">Witamy,&nbsp;<span id="user"></span>!&nbsp;&nbsp;</span><a class="btn btn-warning btn-lg" role="button" onClick="logout()" href="/logout" >LOGOUT</a></div>
           </div>
           </div>
         <div class="modal fade" role="dialog" tabindex="-1" id="myModal">
@@ -287,17 +287,6 @@
     $("#user").html(data.name);
     $(".unauthenticated").hide()
     $(".authenticated").show()
-    fetch('/user/add', {
-      method: 'POST',
-      headers: {
-        'accept': '*/*',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        'email': data.email,
-        'name': data.name,
-      })
-    });
   });
 </script>
 <script>
