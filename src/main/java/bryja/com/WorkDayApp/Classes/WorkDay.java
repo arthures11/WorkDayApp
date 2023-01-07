@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class WorkDay {
     private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     public String date;
-    @ElementCollection
+
     @OneToMany(targetEntity=TimeEntry.class,cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval = true)
     private List<TimeEntry> TimeEntry = new ArrayList<TimeEntry>();

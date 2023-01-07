@@ -53,12 +53,16 @@ public class UserController {
         String n = principal.getAttribute("name");
         String n2 = principal.getAttribute("email");
         if(n2==null){
-            SecurityContextHolder.getContext().setAuthentication(null);
-                throw new EmailNullException(n, req, resp);
+           // SecurityContextHolder.getContext().setAuthentication(null);
+              ///  throw new EmailNullException(n, req, resp);
         }
         User a = new User(n2,n);
         if (emailExists(a.getEmail())) {
-            throw new UserExistsException(a.email);
+            try {
+                resp.sendRedirect(req.getContextPath() + "/");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         else{
             repository.save(a);

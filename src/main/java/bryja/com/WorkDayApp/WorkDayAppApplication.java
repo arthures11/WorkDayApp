@@ -101,7 +101,8 @@ public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
 	public User user(@AuthenticationPrincipal OAuth2User principal) {
 		String n = principal.getAttribute("name");
 		String n2 = principal.getAttribute("email");
-		User user = new User(n2,n);
+		String n3 = principal.getAttribute("user:email");
+		User user = new User(n,n2,n3);
 		return user;
 	}
 }
