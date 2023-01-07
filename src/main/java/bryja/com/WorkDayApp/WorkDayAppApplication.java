@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -37,6 +38,7 @@ import java.util.Map;
 @RestController
 @EnableWebSecurity
 public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
+
 	@Value("/user/add")
 	private String successUrl;
 	@Value("/workdays")
@@ -72,7 +74,9 @@ public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
 				.successHandler(successHandler())
 				.failureHandler(failureHandler());
 
+
 		// @formatter:on
+
 
 	}
 
@@ -96,7 +100,6 @@ public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
 		// @formatter:on
 
 	}
-
 	@GetMapping(value="/user", consumes = {"*/*"})
 	public User user(@AuthenticationPrincipal OAuth2User principal) {
 		String n = principal.getAttribute("name");

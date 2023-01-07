@@ -5,7 +5,9 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class User {
@@ -25,7 +27,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
-
+    @OneToMany(targetEntity=TimeEntry.class,cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Project> projekty = new ArrayList<Project>();
     public User(){
     }
     public User(String email, String name) {
@@ -37,6 +41,14 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public List<Project> getProjekty() {
+        return projekty;
+    }
+
+    public void setProjekty(List<Project> projekty) {
+        this.projekty = projekty;
     }
 
     public Collection<Role> getRoles() {
