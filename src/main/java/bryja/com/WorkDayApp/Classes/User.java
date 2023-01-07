@@ -27,9 +27,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
-    @OneToMany(targetEntity=TimeEntry.class,cascade = CascadeType.ALL,
+    @OneToMany(targetEntity=Project.class,cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval = true)
-    private List<Project> projekty = new ArrayList<Project>();
+    public List<Project> projekty = new ArrayList<Project>();
     public User(){
     }
     public User(String email, String name) {

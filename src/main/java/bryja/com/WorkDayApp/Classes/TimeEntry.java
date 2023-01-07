@@ -32,7 +32,7 @@ public class TimeEntry {
     }
     //}
 
-    TimeEntry(){
+    public TimeEntry(){
 
     }
     public TimeEntry(String description, int time_spent){

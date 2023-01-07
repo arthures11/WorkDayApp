@@ -2,6 +2,8 @@ package bryja.com.WorkDayApp;
 
 import bryja.com.WorkDayApp.Classes.User;
 import bryja.com.WorkDayApp.Controllers.UserController;
+import com.nimbusds.jose.shaded.json.JSONObject;
+import com.nimbusds.jose.shaded.json.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -28,10 +30,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.*;
 
 @SpringBootApplication
 @Configuration
@@ -104,7 +105,7 @@ public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
 	public User user(@AuthenticationPrincipal OAuth2User principal) {
 		String n = principal.getAttribute("name");
 		String n2 = principal.getAttribute("email");
-		String n3 = principal.getAttribute("user:email");
+		String n3 = principal.getAttribute("password");
 		User user = new User(n,n2,n3);
 		return user;
 	}

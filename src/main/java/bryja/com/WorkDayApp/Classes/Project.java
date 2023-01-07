@@ -13,10 +13,13 @@ public class Project {
     public String nazwa;
 
 
-    @OneToMany(targetEntity=TimeEntry.class,cascade = CascadeType.ALL,
+    @OneToMany(targetEntity=bryja.com.WorkDayApp.Classes.WorkDay.class,cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval = true)
     private List<WorkDay> WorkDay = new ArrayList<WorkDay>();
 
+    public Project(){
+
+    }
     public Project(String nazwa) {
         this.nazwa = nazwa;
     }

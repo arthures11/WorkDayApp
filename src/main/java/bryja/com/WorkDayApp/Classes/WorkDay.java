@@ -14,7 +14,7 @@ public class WorkDay {
     @OneToMany(targetEntity=TimeEntry.class,cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, orphanRemoval = true)
     private List<TimeEntry> TimeEntry = new ArrayList<TimeEntry>();
-    WorkDay(){
+    public WorkDay(){
     }
     public WorkDay(String date) {
         this.date = date;
