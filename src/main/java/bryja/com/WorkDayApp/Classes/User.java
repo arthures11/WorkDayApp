@@ -26,7 +26,7 @@ public class User {
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
 
-    User(){
+    public User(){
     }
     public User(String email, String name) {
         this.email = email;
@@ -37,6 +37,14 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 
     public String getName() {

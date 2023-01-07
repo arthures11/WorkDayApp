@@ -3,7 +3,7 @@ package bryja.com.WorkDayApp.Controllers;
 import java.io.IOException;
 import java.sql.Time;
 import java.util.*;
-
+import bryja.com.WorkDayApp.Repository.RoleRepository;
 import bryja.com.WorkDayApp.Classes.TimeEntry;
 import bryja.com.WorkDayApp.Classes.User;
 import bryja.com.WorkDayApp.Classes.WorkDay;
@@ -11,6 +11,7 @@ import bryja.com.WorkDayApp.Exceptions.EmailNullException;
 import bryja.com.WorkDayApp.Exceptions.EntryNotFoundException;
 import bryja.com.WorkDayApp.Exceptions.UserExistsException;
 import bryja.com.WorkDayApp.Exceptions.WorkDayNotFoundException;
+import bryja.com.WorkDayApp.Repository.RoleRepository;
 import bryja.com.WorkDayApp.Repository.TimeEntryRepository;
 import bryja.com.WorkDayApp.Repository.UserRepository;
 import bryja.com.WorkDayApp.Repository.WorkDayRepository;
@@ -43,9 +44,11 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @CrossOrigin(maxAge = 3600)
 public class UserController {
     private final UserRepository repository;
+    private final RoleRepository rolerep;
 
-    public UserController(UserRepository repository) {
+    public UserController(UserRepository repository, RoleRepository rolerep) {
         this.repository = repository;
+        this.rolerep=rolerep;
     }
 
     @GetMapping(value ="/user/add", consumes = {"*/*"})
@@ -57,6 +60,7 @@ public class UserController {
               ///  throw new EmailNullException(n, req, resp);
         }
         User a = new User(n2,n);
+        a.setRoles(Arrays.asList(rolerep.findByName("ROLE_USER")));
         if (emailExists(a.getEmail())) {
             try {
                 resp.sendRedirect(req.getContextPath() + "/");

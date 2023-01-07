@@ -9,7 +9,6 @@ public class Privilege {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String name;
 
     @ManyToMany(mappedBy = "privileges")
@@ -21,6 +20,13 @@ public class Privilege {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Privilege(String name) {
+        this.name = name;
+    }
+
+    public Privilege() {
     }
 
     public String getName() {
