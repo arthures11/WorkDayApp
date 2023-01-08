@@ -35,7 +35,7 @@ public class User {
             fetch = FetchType.LAZY, mappedBy = "user")
     public List<Project> projekty = new ArrayList<Project>();
     @OneToMany(targetEntity=Notification.class,cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, mappedBy = "user")
+            fetch = FetchType.LAZY, mappedBy = "usr")
     public List<Notification> notyfikacje= new ArrayList<Notification>();
 
 
@@ -45,6 +45,7 @@ public class User {
         this.email = email;
         this.name = name;
     }
+
 
     public Long getId2() {
         return id2;
@@ -67,11 +68,6 @@ public class User {
     public void setProjekty(List<Project> projekty) {
         this.projekty = projekty;
     }
-
-    public void setNotyfikacje(List<Notification> notyfikacje) {
-        this.notyfikacje = notyfikacje;
-    }
-    public List<Notification> getNotyfikacje(){return notyfikacje;}
 
     public Collection<Role> getRoles() {
         return roles;

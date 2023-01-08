@@ -1,8 +1,9 @@
-package bryja.com.WorkDayApp.Classes;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+        package bryja.com.WorkDayApp.Classes;
 
-import javax.persistence.*;
+        import com.fasterxml.jackson.annotation.JsonBackReference;
+
+        import javax.persistence.*;
 
 @Entity
 public class Notification {
@@ -12,23 +13,31 @@ public class Notification {
 
     @ManyToOne(targetEntity=User.class,fetch = FetchType.LAZY)
     @JsonBackReference
-    private User user;
+    private User usr;
 
     public User getUser() {
-        return user;
+        return usr;
     }
 
     public void setUser(User user) {
-        this.user = user;
-    }
-    public Notification() {
-
+        this.usr = usr;
     }
 
     public boolean isOdczyt() {
         return odczyt;
     }
 
+    public User getUsr() {
+        return usr;
+    }
+
+    public void setUsr(User usr) {
+        this.usr = usr;
+    }
+
+    public Notification() {
+
+    }
     public Notification (String opis, boolean odczyt) {
         this.opis = opis;
         this.odczyt = odczyt;

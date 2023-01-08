@@ -1,8 +1,9 @@
-package bryja.com.WorkDayApp.Controllers;
 
-import bryja.com.WorkDayApp.Repository.NotificationRepository;
-import bryja.com.WorkDayApp.Repository.UserRepository;
-import org.springframework.web.bind.annotation.RestController;
+        package bryja.com.WorkDayApp.Controllers;
+
+        import bryja.com.WorkDayApp.Repository.NotificationRepository;
+        import bryja.com.WorkDayApp.Repository.UserRepository;
+        import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class NotificationController {
