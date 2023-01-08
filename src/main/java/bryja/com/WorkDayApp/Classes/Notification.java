@@ -11,7 +11,6 @@ public class Notification {
     private boolean odczyt;
 
     @ManyToOne(targetEntity=User.class,fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
 
@@ -25,6 +24,11 @@ public class Notification {
     public Notification() {
 
     }
+
+    public boolean isOdczyt() {
+        return odczyt;
+    }
+
     public Notification (String opis, boolean odczyt) {
         this.opis = opis;
         this.odczyt = odczyt;

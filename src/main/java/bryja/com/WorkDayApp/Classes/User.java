@@ -35,7 +35,7 @@ public class User {
             fetch = FetchType.LAZY, mappedBy = "user")
     public List<Project> projekty = new ArrayList<Project>();
     @OneToMany(targetEntity=Notification.class,cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, mappedBy = "notyfikacje")
+            fetch = FetchType.LAZY, mappedBy = "user")
     public List<Notification> notyfikacje= new ArrayList<Notification>();
 
 
