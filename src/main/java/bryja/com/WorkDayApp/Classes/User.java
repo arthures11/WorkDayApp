@@ -3,6 +3,7 @@ package bryja.com.WorkDayApp.Classes;
 import bryja.com.WorkDayApp.Utility.ValidEmail;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.NotNull;
+import org.aspectj.weaver.ast.Not;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -33,6 +34,11 @@ public class User {
     @OneToMany(targetEntity=Project.class,cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, mappedBy = "user")
     public List<Project> projekty = new ArrayList<Project>();
+    @OneToMany(targetEntity=Notification.class,cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, mappedBy = "notyfikacje")
+    public List<Notification> notyfikacje= new ArrayList<Notification>();
+
+
     public User(){
     }
     public User(String email, String name) {
@@ -61,6 +67,11 @@ public class User {
     public void setProjekty(List<Project> projekty) {
         this.projekty = projekty;
     }
+
+    public void setNotyfikacje(List<Notification> notyfikacje) {
+        this.notyfikacje = notyfikacje;
+    }
+    public List<Notification> getNotyfikacje(){return notyfikacje;}
 
     public Collection<Role> getRoles() {
         return roles;
