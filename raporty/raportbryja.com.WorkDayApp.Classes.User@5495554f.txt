@@ -1,0 +1,411 @@
+specuuuuu@gmail.com
+arto
+{
+  "id": 1,
+  "name": "arto",
+  "email": "specuuuuu@gmail.com",
+  "projekty": [
+    {
+      "id": 1,
+      "nazwa": "proj1",
+      "hash": "1mMjtYDdprfoeBaJGR1ZJ9F7JJLQNMqfQ6E5TjmRUDtgimjiyJ",
+      "WorkDay": [
+        {
+          "id": 28,
+          "date": "2023-01-08",
+          "TimeEntry": [
+            {
+              "id": 7,
+              "description": "wpis",
+              "time_spent": 12312
+            }
+          ],
+          "timeEntry": [
+            {
+              "id": 7,
+              "description": "wpis",
+              "time_spent": 12312
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 30,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 31,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 32,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 33,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 34,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 35,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 36,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 37,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 38,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        }
+      ],
+      "workDay": [
+        {
+          "id": 28,
+          "date": "2023-01-08",
+          "TimeEntry": [
+            {
+              "id": 7,
+              "description": "wpis",
+              "time_spent": 12312
+            }
+          ],
+          "timeEntry": [
+            {
+              "id": 7,
+              "description": "wpis",
+              "time_spent": 12312
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 30,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 31,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 32,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 33,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 34,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 35,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 36,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 37,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 38,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        }
+      ],
+      "workDays": [
+        {
+          "id": 28,
+          "date": "2023-01-08",
+          "TimeEntry": [
+            {
+              "id": 7,
+              "description": "wpis",
+              "time_spent": 12312
+            }
+          ],
+          "timeEntry": [
+            {
+              "id": 7,
+              "description": "wpis",
+              "time_spent": 12312
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 30,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 31,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 32,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 33,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 34,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 35,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 36,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 37,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 38,
+          "date": "2023-01-08",
+          "TimeEntry": [],
+          "timeEntry": []
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "nazwa": "nowy3",
+      "hash": "Zslp4oNFkQjjKmGpXwZvoRgjXbPq0rzMftF43jBFliOgKpjoLP",
+      "WorkDay": [
+        {
+          "id": 20,
+          "date": "2023-01-08",
+          "TimeEntry": [
+            {
+              "id": 4,
+              "description": "66",
+              "time_spent": 66
+            },
+            {
+              "id": 5,
+              "description": "777",
+              "time_spent": 77
+            },
+            {
+              "id": 6,
+              "description": "88",
+              "time_spent": 88
+            }
+          ],
+          "timeEntry": [
+            {
+              "id": 4,
+              "description": "66",
+              "time_spent": 66
+            },
+            {
+              "id": 5,
+              "description": "777",
+              "time_spent": 77
+            },
+            {
+              "id": 6,
+              "description": "88",
+              "time_spent": 88
+            }
+          ]
+        }
+      ],
+      "workDay": [
+        {
+          "id": 20,
+          "date": "2023-01-08",
+          "TimeEntry": [
+            {
+              "id": 4,
+              "description": "66",
+              "time_spent": 66
+            },
+            {
+              "id": 5,
+              "description": "777",
+              "time_spent": 77
+            },
+            {
+              "id": 6,
+              "description": "88",
+              "time_spent": 88
+            }
+          ],
+          "timeEntry": [
+            {
+              "id": 4,
+              "description": "66",
+              "time_spent": 66
+            },
+            {
+              "id": 5,
+              "description": "777",
+              "time_spent": 77
+            },
+            {
+              "id": 6,
+              "description": "88",
+              "time_spent": 88
+            }
+          ]
+        }
+      ],
+      "workDays": [
+        {
+          "id": 20,
+          "date": "2023-01-08",
+          "TimeEntry": [
+            {
+              "id": 4,
+              "description": "66",
+              "time_spent": 66
+            },
+            {
+              "id": 5,
+              "description": "777",
+              "time_spent": 77
+            },
+            {
+              "id": 6,
+              "description": "88",
+              "time_spent": 88
+            }
+          ],
+          "timeEntry": [
+            {
+              "id": 4,
+              "description": "66",
+              "time_spent": 66
+            },
+            {
+              "id": 5,
+              "description": "777",
+              "time_spent": 77
+            },
+            {
+              "id": 6,
+              "description": "88",
+              "time_spent": 88
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "notyfikacje": [
+    {
+      "id": 34,
+      "opis": "Usunięto dzień pracy.",
+      "odczyt": false,
+      "date": "2023-01-08 18:45:08"
+    },
+    {
+      "id": 35,
+      "opis": "Usunięto dzień pracy.",
+      "odczyt": false,
+      "date": "2023-01-08 18:45:08"
+    },
+    {
+      "id": 37,
+      "opis": "Usunięto dzień pracy.",
+      "odczyt": false,
+      "date": "2023-01-08 18:45:09"
+    },
+    {
+      "id": 38,
+      "opis": "Usunięto dzień pracy.",
+      "odczyt": false,
+      "date": "2023-01-08 18:45:09"
+    },
+    {
+      "id": 80,
+      "opis": "Raport wygenerowany.",
+      "odczyt": false,
+      "date": "2023-01-08 20:37:40"
+    }
+  ]
+}

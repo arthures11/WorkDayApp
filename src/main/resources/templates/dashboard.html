@@ -164,8 +164,8 @@
                                 <div class="card-body">
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
-                                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>ilość raportów</span>
-                                                <div id="ilosc_raportow" class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                            <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>ilość pobranych raportów</span>
+                                                <div id="iloscra" class="text-dark fw-bold h5 mb-0"><span>0</span></div>
                                             </div>
                                         </div>
                                         <div class="col-auto"><i class="fas fa-clipboard-check fa-2x text-gray-300"></i></div>
@@ -324,7 +324,6 @@
 </script>
 <script>
     $.get("/user/notifs", function(data) {
-
         for(let i=data.length-1;i>=0;i--){
             var myString = `<a id="NOTIFI`+data[i].id+`" class="dropdown-item d-flex align-items-center" onclick="deletenoti(`+data[i].id+`)">
                                             <div class="me-3">
@@ -337,12 +336,15 @@
 
             $('#alertcenter').append(myString)
             $('#licznikalertow').html(data.length);
-
         }
-
-
     });
+</script>
 
+<script>
+    $.get("/user/raportamount", function(data) {
+
+            $('#iloscra').html(data);
+    });
 </script>
 
 <script type="text/javascript">

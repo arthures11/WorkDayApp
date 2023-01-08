@@ -110,6 +110,12 @@ public class UserController {
         return usr.notyfikacje;
     }
 
+    @GetMapping(value ="/user/raportamount", consumes = {"*/*"})
+    public int Userraports(@AuthenticationPrincipal OAuth2User principal) {
+        User usr = repository.findByEmail(principal.getAttribute("email"));
+        return usr.raporty;
+    }
+
     @RequestMapping(path = "/download", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> download(@AuthenticationPrincipal OAuth2User user, HttpServletResponse response) throws IOException {
         User usr = repository.findByEmail(user.getAttribute("email"));
@@ -133,6 +139,7 @@ public class UserController {
         InputStreamResource resource = new InputStreamResource(fis);
         Date date = new Date();
         usr.notyfikacje.add(new Notification("Raport wygenerowany.",date,usr));
+        usr.raporty+=1;
         userRepository.save(usr);
         plik.delete();
 

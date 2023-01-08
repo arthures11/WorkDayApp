@@ -24,6 +24,7 @@ public class User {
     @ValidEmail
     public String email;
     public String password;
+    public int raporty=0;
 
     @ManyToMany
     @JoinTable(
@@ -43,6 +44,14 @@ public class User {
 
 
     public User(){
+    }
+
+    public int getRaporty() {
+        return raporty;
+    }
+
+    public void setRaporty(int raporty) {
+        this.raporty = raporty;
     }
 
     public List<Notification> getNotyfikacje() {
