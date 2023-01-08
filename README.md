@@ -12,7 +12,7 @@ functions done:
 
 -admin and user roles,
 
--notifications/alerts for user each add/remove request,
+-notifications/alerts(removable by clicking on them) for user each add/remove request,
 
 -adding/removing projects, workdays(inside projects), and entries(inside workdays),
 
