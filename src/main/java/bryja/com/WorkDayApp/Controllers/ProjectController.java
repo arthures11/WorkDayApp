@@ -7,6 +7,7 @@ import bryja.com.WorkDayApp.Repository.ProjectRepository;
 import bryja.com.WorkDayApp.Repository.TimeEntryRepository;
 import bryja.com.WorkDayApp.Repository.UserRepository;
 import bryja.com.WorkDayApp.Repository.WorkDayRepository;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
@@ -39,7 +40,9 @@ public class ProjectController {
     @PostMapping(value ="/user/addproject", consumes = {"*/*"})
     public void UserProjects(@AuthenticationPrincipal OAuth2User principal, @RequestBody Project project) {
         User usr = userRepository.findByEmail(principal.getAttribute("email"));
-        usr.projekty.add(project);
+        String generatedString = RandomStringUtils.randomAlphanumeric(50);
+        project.setHash(generatedString);
+        usr.projekty.add(new Project(project.nazwa, project.hash, usr));
         userRepository.save(usr);
        // projectRepositoryrepository.save(usr.projekty.get(usr.projekty.size()-1));
     }

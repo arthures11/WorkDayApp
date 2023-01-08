@@ -141,7 +141,7 @@
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-primary fw-bold text-xs mb-1"><span>ilość projektów</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                            <div id="ilosc_projektow" class="text-dark fw-bold h5 mb-0"><span>0</span></div>
                                         </div>
                                         <div class="col-auto"><i class="fas fa-calendar fa-2x text-gray-300"></i></div>
                                     </div>
@@ -154,7 +154,7 @@
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-success fw-bold text-xs mb-1"><span>ilość dni pracy</span></div>
-                                            <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                            <div id="ilosc_dnipracy" class="text-dark fw-bold h5 mb-0"><span>0</span></div>
                                         </div>
                                         <div class="col-auto"><i class="fas fa-puzzle-piece fa-2x text-gray-300"></i></div>
                                     </div>
@@ -167,7 +167,7 @@
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>ilość wpisów</span>
-                                                <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                                <div id="ilosc_wpisow" class="text-dark fw-bold h5 mb-0"><span>0</span></div>
                                             </div>
                                         </div>
                                         <div class="col-auto"><i class="fas fa-clipboard-list fa-2x text-gray-300"></i></div>
@@ -181,7 +181,7 @@
                                     <div class="row align-items-center no-gutters">
                                         <div class="col me-2">
                                             <div class="text-uppercase text-info fw-bold text-xs mb-1"><span>ilość raportów</span>
-                                                <div class="text-dark fw-bold h5 mb-0"><span>0</span></div>
+                                                <div id="ilosc_raportow" class="text-dark fw-bold h5 mb-0"><span>0</span></div>
                                             </div>
                                         </div>
                                         <div class="col-auto"><i class="fas fa-clipboard-check fa-2x text-gray-300"></i></div>
@@ -231,12 +231,8 @@
                                 <div class="card-header py-3">
                                     <h6 class="text-primary fw-bold m-0">Projekty</h6>
                                 </div>
-                                <div class="card-body">
-                                    <h4 class="small fw-bold">Server migration<span class="float-end">0 wpisów</span></h4>
-                                    <h4 class="small fw-bold">Sales tracking<span class="float-end">0 wpisów</span></h4>
-                                    <h4 class="small fw-bold">Customer Database<span class="float-end">0 wpisów</span></h4>
-                                    <h4 class="small fw-bold">Payout Details<span class="float-end">0 wpisów</span></h4>
-                                    <h4 class="small fw-bold">Account setup<span class="float-end">0 wpisów</span></h4>
+                                <div id="all_projects" class="card-body">
+
                                 </div>
                             </div>
                             <div class="card shadow mb-4">
@@ -298,5 +294,35 @@
     });
 </script>
 
+<script>
+    $.get("/user/projects", function(data) {
+        $('#ilosc_projektow').html(data.length)
+        var a=0;
+        for(let i=0;i<data.length;i++){
+            a+=data[i].workDay.length;
+        }
+        $('#ilosc_dnipracy').html(a)
+        var b=0;
+        for(let i=0;i<data.length;i++){
+            for(let j=0;j<data[i].workDay.length;j++){
+                b+=data[i].workDay[j].TimeEntry.length
+            }
+        }
+        $('#ilosc_wpisow').html(b)
 
+        var str = ``
+
+        for(let i=0;i<data.length;i++){
+            var ilosc_wpisow = 0;
+            for(let j=0;j<data[i].workDay.length;j++){
+                ilosc_wpisow+=data[i].workDay[j].TimeEntry.length
+            }
+
+            str += '<h4 class="small fw-bold"> nazwa: '+data[i].nazwa+'<span class="float-end">wpisów: '+ilosc_wpisow+'</span></h4>'
+
+        }
+        $('#all_projects').append(str);
+    });
+
+</script>
 </html>

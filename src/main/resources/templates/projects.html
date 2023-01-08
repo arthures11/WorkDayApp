@@ -123,8 +123,8 @@
                             <div class="d-none d-sm-block topbar-divider"></div>
                             <li class="nav-item dropdown no-arrow">
                                 <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span id="username" class="d-none d-lg-inline me-2 text-gray-600 small">Valerie Luna</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar5.jpeg"></a>
-                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
-                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profil</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Ustawienia</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Aktywność</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;wróć do logowania</a>
                                     </div>
                                 </div>
                             </li>
@@ -132,7 +132,7 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Projekty</h3><button class="btn btn-outline-primary text-truncate float-none float-sm-none add-another-btn" data-bss-hover-animate="pulse" type="button" style="margin-bottom: 41px;">Dodaj projekt<i class="fas fa-plus-circle edit-icon"></i></button>
+                    <h3 class="text-dark mb-4">Projekty</h3><button class="btn btn-outline-primary text-truncate float-none float-sm-none add-another-btn" data-bss-hover-animate="pulse" type="button"  data-bs-toggle="modal" data-bs-target="#addProject" style="margin-bottom: 41px;">Dodaj projekt<i class="fas fa-plus-circle edit-icon"></i></button>
                     <div class="card shadow"></div>
                 </div>
                 <div class="container py-4 py-xl-5">
@@ -147,6 +147,31 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
+    <div class="modal fade" id="addProject" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Dodaj projekt</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <i class="fab fa-rocketchat"></i>
+                        <input type="text" id="project_name" class="form-control">
+                        <label data-error="wrong" data-success="right" for="project_name">Nazwa projektu</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-outline-primary text-truncate float-none float-sm-none add-another-btn" data-bss-hover-animate="pulse" type="button" onclick="dodaj_projekt()" style="margin-bottom: 41px;">Dodaj projekt<i class="fas fa-plus-circle edit-icon"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/bs-init.js"></script>
     <script src="assets/js/theme.js"></script>
@@ -161,7 +186,7 @@
     $.get("/user/projects", function(data) {
 
         for(let i=0;i<data.length;i++){
-            var myString = `                        <div class="col">
+            var myString = `                        <a href="/projekt?proj=`+data[i].hash+`"><div class="col">
                             <div class="d-flex p-3">
                                 <div class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block bs-icon sm"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-arrow-up-square">
                                         <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707V11.5z"></path>
@@ -170,7 +195,7 @@
                                     <h5 id="projectname" class="mb-0 mt-1">`+data[i].nazwa+`</h5>
                                 </div>
                             </div>
-                        </div>`
+                        </div></a>`
 
             $('#projekty').append(myString)
 
@@ -178,6 +203,23 @@
 
 
     });
+
+</script>
+<script type="text/javascript">
+     async function dodaj_projekt(){
+        await fetch('https://localhost:8088/user/addproject', {
+            method: 'POST',
+            headers: {
+                'accept': '*/*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'nazwa': $('#project_name').val()
+            })
+        });
+         location.reload();
+    }
+
 
 </script>
 </html>

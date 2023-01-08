@@ -1,6 +1,7 @@
 package bryja.com.WorkDayApp.Classes;
 
 import bryja.com.WorkDayApp.Utility.ValidEmail;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -11,8 +12,10 @@ import java.util.List;
 
 @Entity
 public class User {
-    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "id")Long id;
+    @Column(name = "user_id")public Long id2;
     public String name;
+    @Column(unique=true)
     @NotNull
     @NotEmpty
     @ValidEmail
@@ -28,13 +31,21 @@ public class User {
                     name = "role_id", referencedColumnName = "id"))
     private Collection<Role> roles;
     @OneToMany(targetEntity=Project.class,cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, orphanRemoval = true)
+            fetch = FetchType.LAZY, mappedBy = "user")
     public List<Project> projekty = new ArrayList<Project>();
     public User(){
     }
     public User(String email, String name) {
         this.email = email;
         this.name = name;
+    }
+
+    public Long getId2() {
+        return id2;
+    }
+
+    public void setId2(Long id2) {
+        this.id2 = id2;
     }
 
     public User(String name, String email, String password) {

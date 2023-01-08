@@ -1,20 +1,26 @@
 package bryja.com.WorkDayApp.Services;
 import java.sql.Time;
 import java.util.*;
+
+import bryja.com.WorkDayApp.Classes.Project;
 import bryja.com.WorkDayApp.Classes.TimeEntry;
 import bryja.com.WorkDayApp.Classes.WorkDay;
 import bryja.com.WorkDayApp.Controllers.WorkDayController;
 import bryja.com.WorkDayApp.Exceptions.EntryNotFoundException;
 import bryja.com.WorkDayApp.Exceptions.WorkDayNotFoundException;
+import bryja.com.WorkDayApp.Repository.ProjectRepository;
 import bryja.com.WorkDayApp.Repository.TimeEntryRepository;
 import bryja.com.WorkDayApp.Repository.WorkDayRepository;
 import bryja.com.WorkDayApp.Utility.GregorianDateMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.BeanUtils;
+
+import javax.transaction.Transactional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -25,11 +31,13 @@ public class WorkDayService {
 
     private final WorkDayRepository repository;
     private final TimeEntryRepository entries_repository;
+    private final ProjectRepository projectRepository;
 
     @Autowired
-    WorkDayService(WorkDayRepository repository, TimeEntryRepository entries_repository) {
+    WorkDayService(WorkDayRepository repository, TimeEntryRepository entries_repository, ProjectRepository prj) {
         this.repository = repository;
         this.entries_repository = entries_repository;
+        this.projectRepository = prj;
     }
 
     public List<WorkDay> showAllWorkdays() {
@@ -113,6 +121,16 @@ public class WorkDayService {
         if(!WorkDay.getTimeEntry().isEmpty()){
             //  WorkDay.getTimeEntry().clear();
         }
-        repository.deleteById(id);
+       // repository.deleteById(id);
+        //projectRepository.delete(prj);
+        repository.delete(WorkDay);
+    }
+
+    public void deleteTimeEntry(@PathVariable("id")Long id) {
+        TimeEntry TimeEntry = entries_repository.findById(id) //
+                .orElseThrow(() -> new WorkDayNotFoundException(id));
+        // repository.deleteById(id);
+        //projectRepository.delete(prj);
+        entries_repository.delete(TimeEntry);
     }
 }

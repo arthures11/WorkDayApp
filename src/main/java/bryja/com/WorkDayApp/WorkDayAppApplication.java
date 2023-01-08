@@ -109,5 +109,6 @@ public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
 		User user = new User(n,n2,n3);
 		return user;
 	}
+
 }
 
