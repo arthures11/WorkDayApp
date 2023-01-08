@@ -3,17 +3,11 @@ package bryja.com.WorkDayApp.Controllers;
 import java.sql.Time;
 import java.util.*;
 
-import bryja.com.WorkDayApp.Classes.Project;
-import bryja.com.WorkDayApp.Classes.TimeEntry;
-import bryja.com.WorkDayApp.Classes.User;
-import bryja.com.WorkDayApp.Classes.WorkDay;
+import bryja.com.WorkDayApp.Classes.*;
 import bryja.com.WorkDayApp.Exceptions.EntryNotFoundException;
 import bryja.com.WorkDayApp.Exceptions.UserExistsException;
 import bryja.com.WorkDayApp.Exceptions.WorkDayNotFoundException;
-import bryja.com.WorkDayApp.Repository.ProjectRepository;
-import bryja.com.WorkDayApp.Repository.TimeEntryRepository;
-import bryja.com.WorkDayApp.Repository.UserRepository;
-import bryja.com.WorkDayApp.Repository.WorkDayRepository;
+import bryja.com.WorkDayApp.Repository.*;
 import bryja.com.WorkDayApp.Utility.GregorianDateMatcher;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.hibernate.jdbc.Work;
@@ -39,11 +33,13 @@ public class WorkDayController {
     private final ProjectRepository projectRepository;
     private final WorkDayRepository workDayRepository;
     private final TimeEntryRepository entries;
-    WorkDayController(WorkDayRepository repository, UserRepository usr_re, ProjectRepository project_rep, TimeEntryRepository entry) {
+    private final NotificationRepository notificationRepository;
+    WorkDayController(WorkDayRepository repository, UserRepository usr_re, ProjectRepository project_rep, TimeEntryRepository entry, NotificationRepository rep) {
         this.userRepository=usr_re;
         this.projectRepository = project_rep;
         this.workDayRepository = repository;
         this.entries = entry;
+        this.notificationRepository=rep;
     }
 
     @GetMapping(value="/workdays", consumes = {"*/*"})
@@ -84,15 +80,26 @@ public class WorkDayController {
     }
 
     @DeleteMapping(value="/workdays/{id}", consumes = {"*/*"})
-    void deleteWorkDay(@PathVariable("id") Long id) {
-
+    void deleteWorkDay(@AuthenticationPrincipal OAuth2User principal,@PathVariable("id") Long id) {
+        User usr = userRepository.findByEmail(principal.getAttribute("email"));
          workDayService.deleteWorkDay(id);
+        Date date = new Date();
+        usr.notyfikacje.add(new Notification("Usunięto dzień pracy.",date,usr));
+        userRepository.save(usr);
+    }
+    @DeleteMapping(value="/notif/{id}", consumes = {"*/*"})
+    void deletenotif(@AuthenticationPrincipal OAuth2User principal,@PathVariable("id") Long id) {
+        User usr = userRepository.findByEmail(principal.getAttribute("email"));
+        notificationRepository.deleteById(id);
     }
 
     @DeleteMapping(value="/timeentry/{id}", consumes = {"*/*"})
-    void deleteTimeEntry(@PathVariable("id") Long id) {
-
+    void deleteTimeEntry(@AuthenticationPrincipal OAuth2User principal,@PathVariable("id") Long id) {
+        User usr = userRepository.findByEmail(principal.getAttribute("email"));
         workDayService.deleteTimeEntry(id);
+        Date date = new Date();
+        usr.notyfikacje.add(new Notification("Usunięto wpis.",date,usr));
+        userRepository.save(usr);
     }
 
 
@@ -112,6 +119,9 @@ public class WorkDayController {
         //projectRepository.save(project);
 
         projectRepository.save(project);
+        Date date = new Date();
+        usr.notyfikacje.add(new Notification("Dodanie dnia zakończone pomyślnie.",date,usr));
+        userRepository.save(usr);
         // projectRepositoryrepository.save(usr.projekty.get(usr.projekty.size()-1));
     }
 
@@ -126,7 +136,9 @@ public class WorkDayController {
 
         day.getTimeEntry().add(new TimeEntry(entry.description,entry.time_spent,day));
         workDayRepository.save(day);
-
+        Date date = new Date();
+        usr.notyfikacje.add(new Notification("Dodanie dnia z czasem: '"+entry.time_spent+"' zostało zakończone pomyślnie.",date,usr));
+        userRepository.save(usr);
 
        // System.out.println(en.);
 

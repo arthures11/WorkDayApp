@@ -1,38 +1,50 @@
+package bryja.com.WorkDayApp.Classes;
 
-        package bryja.com.WorkDayApp.Classes;
+import ch.qos.logback.core.subst.NodeToStringTransformer;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-        import com.fasterxml.jackson.annotation.JsonBackReference;
-
-        import javax.persistence.*;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Notification {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
-    private String opis;
-    private boolean odczyt;
+    public String opis;
+    public boolean odczyt;
+
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    public Date date;
 
     @ManyToOne(targetEntity=User.class,fetch = FetchType.LAZY)
     @JsonBackReference
-    private User usr;
-
-    public User getUser() {
-        return usr;
-    }
-
-    public void setUser(User user) {
-        this.usr = usr;
-    }
+    private User user;
 
     public boolean isOdczyt() {
         return odczyt;
     }
 
-    public User getUsr() {
-        return usr;
+            public Notification(String opis, Date date, User usr) {
+                this.opis = opis;
+                this.date = date;
+                this.user = usr;
+            }
+
+    public User getUser() {
+        return user;
     }
 
-    public void setUsr(User usr) {
-        this.usr = usr;
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Notification() {

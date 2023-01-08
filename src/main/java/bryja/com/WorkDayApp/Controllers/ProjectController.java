@@ -1,5 +1,6 @@
 package bryja.com.WorkDayApp.Controllers;
 
+import bryja.com.WorkDayApp.Classes.Notification;
 import bryja.com.WorkDayApp.Classes.Project;
 import bryja.com.WorkDayApp.Classes.TimeEntry;
 import bryja.com.WorkDayApp.Classes.User;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -43,6 +45,8 @@ public class ProjectController {
         String generatedString = RandomStringUtils.randomAlphanumeric(50);
         project.setHash(generatedString);
         usr.projekty.add(new Project(project.nazwa, project.hash, usr));
+        Date date = new Date();
+        usr.notyfikacje.add(new Notification("Dodanie nowego projektu o nazwie '"+project.nazwa+"' zakończone pomyślnie.",date,usr));
         userRepository.save(usr);
        // projectRepositoryrepository.save(usr.projekty.get(usr.projekty.size()-1));
     }

@@ -2,6 +2,7 @@ package bryja.com.WorkDayApp.Classes;
 
 import bryja.com.WorkDayApp.Utility.ValidEmail;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import org.aspectj.weaver.ast.Not;
 
@@ -35,12 +36,21 @@ public class User {
             fetch = FetchType.LAZY, mappedBy = "user")
     public List<Project> projekty = new ArrayList<Project>();
     @OneToMany(targetEntity=Notification.class,cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, mappedBy = "usr")
-    public List<Notification> notyfikacje= new ArrayList<Notification>();
+            fetch = FetchType.LAZY, mappedBy = "user")
+    public List<Notification> notyfikacje = new ArrayList<Notification>();
 
 
     public User(){
     }
+
+    public List<Notification> getNotyfikacje() {
+        return notyfikacje;
+    }
+
+    public void setNotyfikacje(List<Notification> notyfikacje) {
+        this.notyfikacje = notyfikacje;
+    }
+
     public User(String email, String name) {
         this.email = email;
         this.name = name;

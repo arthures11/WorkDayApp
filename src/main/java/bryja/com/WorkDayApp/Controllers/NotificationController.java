@@ -1,8 +1,16 @@
 
         package bryja.com.WorkDayApp.Controllers;
 
+        import bryja.com.WorkDayApp.Classes.Notification;
+        import bryja.com.WorkDayApp.Classes.Project;
+        import bryja.com.WorkDayApp.Classes.User;
         import bryja.com.WorkDayApp.Repository.NotificationRepository;
         import bryja.com.WorkDayApp.Repository.UserRepository;
+        import org.apache.commons.lang3.RandomStringUtils;
+        import org.springframework.security.core.annotation.AuthenticationPrincipal;
+        import org.springframework.security.oauth2.core.user.OAuth2User;
+        import org.springframework.web.bind.annotation.PostMapping;
+        import org.springframework.web.bind.annotation.RequestBody;
         import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,5 +22,13 @@ public class NotificationController {
     public NotificationController(NotificationRepository notificationRepository, UserRepository userRepository) {
         this.notificationRepository = notificationRepository;
         this.userRepository = userRepository;
+    }
+
+    @PostMapping(value ="/user/addnotification", consumes = {"*/*"})
+    public void UserProjects(@AuthenticationPrincipal OAuth2User principal, @RequestBody Notification notif) {
+        User usr = userRepository.findByEmail(principal.getAttribute("email"));
+        usr.notyfikacje.add(new Notification(notif.opis,notif.date,usr));
+        userRepository.save(usr);
+        // projectRepositoryrepository.save(usr.projekty.get(usr.projekty.size()-1));
     }
 }

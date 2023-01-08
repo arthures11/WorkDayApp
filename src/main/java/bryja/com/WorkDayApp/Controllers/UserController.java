@@ -3,6 +3,7 @@ package bryja.com.WorkDayApp.Controllers;
 import java.io.IOException;
 import java.util.*;
 
+import bryja.com.WorkDayApp.Classes.Notification;
 import bryja.com.WorkDayApp.Classes.Project;
 import bryja.com.WorkDayApp.Classes.WorkDay;
 import bryja.com.WorkDayApp.Exceptions.UserExistsException;
@@ -67,7 +68,6 @@ public class UserController {
     public List<Project> UserProjects(@AuthenticationPrincipal OAuth2User principal, HttpServletRequest req, HttpServletResponse resp) {
         User usr = repository.findByEmail(principal.getAttribute("email"));
 
-
         return usr.projekty;
     }
 
@@ -84,6 +84,14 @@ public class UserController {
             }
         }
         return project.getWorkDay();
+    }
+
+    @GetMapping(value ="/user/notifs", consumes = {"*/*"})
+    public List<Notification> UserNotifs(@AuthenticationPrincipal OAuth2User principal) {
+        User usr = repository.findByEmail(principal.getAttribute("email"));
+
+
+        return usr.notyfikacje;
     }
 
     private boolean emailExists(String email) {
