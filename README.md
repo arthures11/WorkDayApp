@@ -3,18 +3,33 @@
 a simple school project using spring boot, hibernate and h2.
 
 functions done:
+
+
+
 -front page, dashboard, profile-settings page, projects page, specific project page,
+
 -login/register using social login(Google preferable),
+
 -admin and user roles,
+
 -notifications/alerts for user each add/remove request,
+
 -adding/removing projects, workdays(inside projects), and entries(inside workdays),
+
 -dashboard page with actual user data,
+
 -downloading raport of full user data(using GSON and JACKSON).
 
+
+
 TODO:
+
 -raport as a separate thread,
+
 -edit user/projects/workdays/entries data,
+
 -some design improvements like showing limited amount of alerts instead of all of them,
+
 -full activity logs(non-removable unlike alerts/notifications).
 
 ![a3223ad6ad13af72f404df4b1d3344f5](https://user-images.githubusercontent.com/58474213/211195371-655182f5-510c-4347-9f8c-51534771a3dd.png)
