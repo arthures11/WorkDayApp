@@ -2,6 +2,7 @@ package bryja.com.WorkDayApp.Classes;
 
 import bryja.com.WorkDayApp.Classes.TimeEntry;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Parent;
 
 import java.sql.Time;
@@ -21,7 +22,9 @@ public class WorkDay {
     @ManyToOne(targetEntity=Project.class,fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     @JsonBackReference
+    @JsonIgnore
     private Project project;
+    @JsonIgnore
     public Project getProject() {
         return project;
     }

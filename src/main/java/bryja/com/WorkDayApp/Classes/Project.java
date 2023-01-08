@@ -1,6 +1,7 @@
 package bryja.com.WorkDayApp.Classes;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.jdbc.Work;
 
 import javax.persistence.*;
@@ -23,6 +24,7 @@ public class Project {
 
     @ManyToOne(targetEntity=User.class,fetch = FetchType.LAZY)
     @JsonBackReference
+    @JsonIgnore
     private User user;
     public List<WorkDay> getWorkDays() {
         return WorkDay;
@@ -33,7 +35,7 @@ public class Project {
         this.hash = hash;
         this.user = user;
     }
-
+    @JsonIgnore
     public User getUser() {
         return user;
     }

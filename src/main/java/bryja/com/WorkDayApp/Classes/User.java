@@ -2,6 +2,7 @@ package bryja.com.WorkDayApp.Classes;
 
 import bryja.com.WorkDayApp.Utility.ValidEmail;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import org.aspectj.weaver.ast.Not;
@@ -31,6 +32,7 @@ public class User {
                     name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "role_id", referencedColumnName = "id"))
+    @JsonIgnore
     private Collection<Role> roles;
     @OneToMany(targetEntity=Project.class,cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, mappedBy = "user")

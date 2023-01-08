@@ -19,6 +19,7 @@ public class Notification {
 
     @ManyToOne(targetEntity=User.class,fetch = FetchType.LAZY)
     @JsonBackReference
+    @JsonIgnore
     private User user;
 
     public boolean isOdczyt() {
@@ -30,7 +31,7 @@ public class Notification {
                 this.date = date;
                 this.user = usr;
             }
-
+    @JsonIgnore
     public User getUser() {
         return user;
     }
