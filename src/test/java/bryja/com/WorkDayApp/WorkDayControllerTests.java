@@ -29,6 +29,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @SpringBootTest
 @ActiveProfiles("test")
 @AutoConfigureMockMvc
+@ExtendWith(SpringExtension.class)
 public class WorkDayControllerTests {
     @Autowired
     private MockMvc mvc;
