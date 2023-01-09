@@ -42,3 +42,12 @@ TODO:
 ![26e946a99bf15aefc409d0e3cc7b43a5](https://user-images.githubusercontent.com/58474213/211220376-c5ac148f-fa97-4b60-b7a1-9b61b2b5dbdb.png)
 ![41652911cf5f736fcd9f2781bcc6886e](https://user-images.githubusercontent.com/58474213/211220377-7c975eff-be64-4265-a70e-bfea8e4ea477.png)
 ![c1e8537d08ecaa852b98e66af9c3d3c3](https://user-images.githubusercontent.com/58474213/211220379-3e224d78-fce0-47a1-85da-527858c56d90.png)
+
+
+https://localhost:8088/swagger-ui/#/
+https://localhost:8088/h2-console
+https://localhost:8088/
+https://localhost:8088/dashboard
+https://localhost:8088/projects
+https://localhost:8088/profile
+https://localhost:8088/projekt
