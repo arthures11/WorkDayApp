@@ -60,7 +60,15 @@ public class WorkDayAppApplication extends WebSecurityConfigurerAdapter {
 		// @formatter:off
 		http
 				.csrf().disable()
-				.authorizeRequests(a -> a
+			//	.authorizeRequests(a -> a
+			//			.antMatchers("/", "/error", "/webjars/**", "/githubprivacyerror.html").permitAll()
+			//			.antMatchers(staticResources).permitAll()
+			//			//.antMatchers("/h2-console").access("hasRole('ROLE_ADMIN')")
+			//			//.antMatchers("/h2-console","/h2-console/**").hasRole("ADMIN")
+			//			.anyRequest().authenticated()
+			//	)
+				.authorizeHttpRequests((requests) -> requests
+						.antMatchers("/swagger-ui/**", "/swagger-ui/#/", "/swagger-ui**").hasRole("USER")
 						.antMatchers("/", "/error", "/webjars/**", "/githubprivacyerror.html").permitAll()
 						.antMatchers(staticResources).permitAll()
 						.anyRequest().authenticated()
