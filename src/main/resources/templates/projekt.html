@@ -172,10 +172,41 @@
                                                 <p style="font-family: 'Source Sans Pro', sans-serif;color: #212121;margin-top: 16px;">`+data[i].timeEntry[j].description+`</p>
                                             </div>
                                             <div class="container"><button class="btn btn-outline-primary text-truncate link-primary float-none float-sm-none add-another-btn" data-bss-hover-animate="pulse" type="button" onclick="deleteEntry(`+data[i].TimeEntry[j].id+`)" style="margin-left: 11px;width: 83.4062px;height: 39.1875px;">usuń<i class="fas fa-ban edit-icon"></i></button>
-                                                <div class="btn-group" role="group"></div><button class="btn btn-outline-primary text-truncate link-primary float-none float-sm-none add-another-btn" data-bss-hover-animate="pulse" type="button" style="margin-left: 11px;width: 94.4062px;height: 39.1875px;">zmień<i class="far fa-edit edit-icon"></i></button>
+                                                <div class="btn-group" role="group"></div><button class="btn btn-outline-primary text-truncate link-primary float-none float-sm-none add-another-btn" data-bss-hover-animate="pulse" type="button" data-bs-toggle="modal" data-bs-target="#editwpis`+data[i].TimeEntry[j].id+`" style="margin-left: 11px;width: 94.4062px;height: 39.1875px;">zmień<i class="far fa-edit edit-icon"></i></button>
                                             </div>
                                         </div>
-                                    </div>`
+                                    </div>
+
+    <div class="modal fade" id="editwpis`+data[i].TimeEntry[j].id+`" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Edycja wpisu</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                        <i class="fab fa-rocketchat"></i>
+                        <input type="text" id="opis_edit`+data[i].TimeEntry[j].id+`" class="form-control" placeholder="`+data[i].timeEntry[j].description+`">
+                        <label data-error="wrong" data-success="right" for="opis`+data[i].TimeEntry[j].id+`">opis wpisu</label>
+                    </div>
+                                      <div class="md-form mb-5">
+                        <i class="fab fa-rocketchat"></i>
+                        <input type="number" id="minut_edit`+data[i].TimeEntry[j].id+`" class="form-control" placeholder="`+data[i].timeEntry[j].time_spent+`">
+                        <label data-error="wrong" data-success="right" for="minut`+data[i].TimeEntry[j].id+`">ilość minut</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-outline-primary text-truncate float-none float-sm-none add-another-btn" data-bss-hover-animate="pulse" type="button" onclick="edit_wpis(`+data[i].TimeEntry[j].id+`)" style="margin-bottom: 41px;">Edytuj<i class="fas fa-plus-circle edit-icon"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+`
         }
 
             var myString = `<div class="col">
@@ -272,6 +303,24 @@
             body: JSON.stringify({
                 'description': $('#opis'+(i+1)).val(),
                 'time_spent': $('#minut'+(i+1)).val()
+            })
+        });
+        location.reload();
+    }
+</script>
+
+<script type="text/javascript">
+
+    async function edit_wpis(id){
+        fetch('https://localhost:8088/user/edittimeentry/'+id+'', {
+            method: 'PUT',
+            headers: {
+                'accept': '*/*',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                'description': $('#opis_edit'+(id)).val(),
+                'time_spent': $('#minut_edit'+(id)).val()
             })
         });
         location.reload();

@@ -139,11 +139,24 @@ public class WorkDayController {
         Date date = new Date();
         usr.notyfikacje.add(new Notification("Dodanie dnia z czasem: '"+entry.time_spent+"' zostało zakończone pomyślnie.",date,usr));
         userRepository.save(usr);
+    }
 
-       // System.out.println(en.);
+    @PutMapping(value ="/user/edittimeentry/{id}", consumes = {"*/*"})
+    public void editTimeEntryinUser(@AuthenticationPrincipal OAuth2User principal, @RequestBody TimeEntry entry,@PathVariable int id) {
+        User usr = userRepository.findByEmail(principal.getAttribute("email"));
+        if(usr==null){
+            throw new UserExistsException("");
+        }
 
-        //projectRepository.save(project);
-        // projectRepositoryrepository.save(usr.projekty.get(usr.projekty.size()-1));
+        TimeEntry en = entries.findById((long)id)
+                .orElseThrow(() -> new WorkDayNotFoundException(""));
+
+        en.time_spent = entry.time_spent;
+        en.description = entry.description;
+
+        Date date = new Date();
+        usr.notyfikacje.add(new Notification("Edytowanie wpisu czasu na: '"+entry.time_spent+"' zostało zakończone pomyślnie.",date,usr));
+        userRepository.save(usr);
     }
 
 }

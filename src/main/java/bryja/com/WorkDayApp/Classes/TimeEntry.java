@@ -21,6 +21,7 @@ public class TimeEntry {
         return workDay;
     }
 
+
     public void setWorkDay(WorkDay workDay) {
         this.workDay = workDay;
     }
