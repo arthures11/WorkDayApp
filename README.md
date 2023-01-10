@@ -16,6 +16,8 @@ functions done:
 
 -adding/removing projects, workdays(inside projects), and entries(inside workdays),
 
+-editing entries,
+
 -dashboard page with actual user data,
 
 -downloading raport of full user data(using GSON and JACKSON).
@@ -23,8 +25,6 @@ functions done:
 
 
 TODO:
-
--edit user/projects/workdays/entries data,
 
 -some design improvements like showing limited amount of alerts instead of all of them,
 
