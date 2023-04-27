@@ -2,16 +2,15 @@ package bryja.com.WorkDayApp.Classes;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.jdbc.Work;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class TimeEntry {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     public String description;
     public int time_spent;
-    @ManyToOne(targetEntity=WorkDay.class,fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity=WorkDay.class,fetch = FetchType.EAGER)
     @JoinColumn(name = "workday_id")
     @JsonBackReference
     @JsonIgnore

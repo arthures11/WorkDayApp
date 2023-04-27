@@ -1,0 +1,10 @@
+specuuuuu@gmail.com
+arto
+{
+  "id": 1,
+  "name": "arto",
+  "email": "specuuuuu@gmail.com",
+  "raporty": 0,
+  "projekty": [],
+  "notyfikacje": []
+}

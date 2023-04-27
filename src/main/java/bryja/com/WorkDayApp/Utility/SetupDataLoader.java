@@ -2,17 +2,15 @@ package bryja.com.WorkDayApp.Utility;
 
 import bryja.com.WorkDayApp.Classes.Privilege;
 import bryja.com.WorkDayApp.Classes.Role;
-import bryja.com.WorkDayApp.Classes.User;
 import bryja.com.WorkDayApp.Repository.PrivilegeRepository;
 import bryja.com.WorkDayApp.Repository.RoleRepository;
 import bryja.com.WorkDayApp.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
+import jakarta.transaction.Transactional;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -23,8 +21,6 @@ public class SetupDataLoader implements
 
     boolean alreadySetup = false;
 
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private RoleRepository roleRepository;
@@ -32,8 +28,7 @@ public class SetupDataLoader implements
     @Autowired
     private PrivilegeRepository privilegeRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+
 
     @Override
     @Transactional

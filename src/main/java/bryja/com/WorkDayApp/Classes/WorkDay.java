@@ -1,14 +1,10 @@
 package bryja.com.WorkDayApp.Classes;
 
-import bryja.com.WorkDayApp.Classes.TimeEntry;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.Parent;
-
-import java.sql.Time;
 import java.util.*;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 @Entity
 public class WorkDay {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,9 +13,9 @@ public class WorkDay {
     public String date;
     @OneToMany(targetEntity=TimeEntry.class,cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, mappedBy = "workDay")
-    public List<TimeEntry> TimeEntry = new ArrayList<TimeEntry>();
+    public List<TimeEntry> TimeEntry;
 
-    @ManyToOne(targetEntity=Project.class,fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity=Project.class,fetch = FetchType.EAGER)
     @JoinColumn(name = "project_id")
     @JsonBackReference
     @JsonIgnore

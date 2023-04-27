@@ -1,0 +1,10 @@
+feuerturm15@gmail.com
+syresi doane
+{
+  "id": 1,
+  "name": "syresi doane",
+  "email": "feuerturm15@gmail.com",
+  "raporty": 0,
+  "projekty": [],
+  "notyfikacje": []
+}

@@ -1,27 +1,17 @@
 package bryja.com.WorkDayApp.Controllers;
-
-import java.sql.Time;
 import java.util.*;
 
 import bryja.com.WorkDayApp.Classes.*;
-import bryja.com.WorkDayApp.Exceptions.EntryNotFoundException;
 import bryja.com.WorkDayApp.Exceptions.UserExistsException;
 import bryja.com.WorkDayApp.Exceptions.WorkDayNotFoundException;
 import bryja.com.WorkDayApp.Repository.*;
 import bryja.com.WorkDayApp.Utility.GregorianDateMatcher;
-import org.apache.commons.lang3.RandomStringUtils;
-import org.hibernate.jdbc.Work;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.BeanUtils;
 import bryja.com.WorkDayApp.Services.*;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @CrossOrigin(maxAge = 3600)

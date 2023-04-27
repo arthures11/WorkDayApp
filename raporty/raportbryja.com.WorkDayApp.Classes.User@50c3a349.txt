@@ -1,0 +1,44 @@
+specuuuuu@gmail.com
+arto
+{
+  "id": 1,
+  "name": "arto",
+  "email": "specuuuuu@gmail.com",
+  "raporty": 0,
+  "projekty": [
+    {
+      "id": 1,
+      "nazwa": "123",
+      "hash": "XAuUVZ0EbkkVnBaaSo7gh8HxVx7QAUvxdHb2qteI1jbnxPpcm1",
+      "WorkDay": [],
+      "workDay": [],
+      "workDays": []
+    }
+  ],
+  "notyfikacje": [
+    {
+      "id": 1,
+      "opis": "Dodanie nowego projektu o nazwie \u0027123\u0027 zakończone pomyślnie.",
+      "odczyt": false,
+      "date": "2023-01-20 20:43:14"
+    },
+    {
+      "id": 2,
+      "opis": "Dodanie dnia zakończone pomyślnie.",
+      "odczyt": false,
+      "date": "2023-01-20 20:43:15"
+    },
+    {
+      "id": 3,
+      "opis": "Dodanie dnia z czasem: \u0027123\u0027 zostało zakończone pomyślnie.",
+      "odczyt": false,
+      "date": "2023-01-20 20:43:18"
+    },
+    {
+      "id": 4,
+      "opis": "Usunięto dzień pracy.",
+      "odczyt": false,
+      "date": "2023-01-20 20:43:19"
+    }
+  ]
+}

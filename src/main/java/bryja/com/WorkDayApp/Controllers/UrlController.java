@@ -3,24 +3,30 @@ package bryja.com.WorkDayApp.Controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class UrlController {
 
-    @RequestMapping(value="/dashboard", method= RequestMethod.GET)
-    public String getDashboard() {
-        return "/dashboard";
+    @RequestMapping(value="/dashboard")
+    public ModelAndView getDashboard() {
+        return new ModelAndView("dashboard");
     }
-    @RequestMapping(value="/profile", method= RequestMethod.GET)
-    public String getProfile() {
-        return "/profile";
+    @RequestMapping(value="/profile")
+    public ModelAndView getProfile() {
+        return new ModelAndView("profile");
     }
-    @RequestMapping(value="/projects", method= RequestMethod.GET)
-    public String getProjects() {
-        return "/projects";
+    @RequestMapping(value="/projects")
+    public ModelAndView getProjects() {
+        return new ModelAndView("projects");
     }
-    @RequestMapping(value="/projekt", method= RequestMethod.GET)
-    public String getProject() {
-        return "/projekt";
+    @RequestMapping(value="/projekt")
+    public ModelAndView getProject() {
+        return new ModelAndView("projekt");
+    }
+
+    @RequestMapping(value="/")
+    public ModelAndView getindex() {
+        return new ModelAndView("index");
     }
 }

@@ -1,27 +1,18 @@
 package bryja.com.WorkDayApp.Services;
-import java.sql.Time;
 import java.util.*;
 
-import bryja.com.WorkDayApp.Classes.Project;
 import bryja.com.WorkDayApp.Classes.TimeEntry;
 import bryja.com.WorkDayApp.Classes.WorkDay;
 import bryja.com.WorkDayApp.Controllers.WorkDayController;
-import bryja.com.WorkDayApp.Exceptions.EntryNotFoundException;
 import bryja.com.WorkDayApp.Exceptions.WorkDayNotFoundException;
 import bryja.com.WorkDayApp.Repository.ProjectRepository;
 import bryja.com.WorkDayApp.Repository.TimeEntryRepository;
 import bryja.com.WorkDayApp.Repository.WorkDayRepository;
 import bryja.com.WorkDayApp.Utility.GregorianDateMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.hateoas.EntityModel;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.BeanUtils;
-
-import javax.transaction.Transactional;
-
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 

@@ -7,7 +7,8 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 import org.aspectj.weaver.ast.Not;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Collection;

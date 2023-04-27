@@ -4,16 +4,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Dashboard - Brand</title>
+    <title>Panel użytkownika</title>
     <link rel="stylesheet" href="assets/bootstrap/css/app/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,900">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="assets/css/Add-Another-Button.css">
     <link rel="stylesheet" href="assets/css/Features-Minimal-icons.css">
-    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/webjars/js-cookie/js.cookie.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -350,8 +350,9 @@
 <script type="text/javascript">
 
     async function deletenoti(id){
+        var d = location.protocol + '//' + location.host;
 
-        await fetch('https://localhost:8088/notif/'+id+'', {
+        await fetch(d+'/notif/'+id+'', {
             method: 'DELETE',
             headers: {
                 'accept': '*/*'
@@ -365,8 +366,9 @@
 <script type="text/javascript">
 
     async function raport(){
+        var d = location.protocol + '//' + location.host;
          n = new Date();
-        await fetch("https://localhost:8088/download")
+        await fetch(d+"/download")
             .then((res) => { return res.blob(); })
             .then((data) => {
                 var a = document.createElement("a");

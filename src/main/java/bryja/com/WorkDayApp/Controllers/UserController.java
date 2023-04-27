@@ -3,6 +3,7 @@ package bryja.com.WorkDayApp.Controllers;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 import bryja.com.WorkDayApp.Classes.Notification;
@@ -29,8 +30,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
@@ -63,7 +64,7 @@ public class UserController {
         a.setRoles(Arrays.asList(rolerep.findByName("ROLE_USER")));
         if (emailExists(a.getEmail())) {
             try {
-                resp.sendRedirect(req.getContextPath() + "/");
+                resp.sendRedirect(req.getContextPath()+"/");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -73,7 +74,7 @@ public class UserController {
             //model.addAttribute("attribute", "forwardWithForwardPrefix");
 
             try {
-                resp.sendRedirect(req.getContextPath() + "/");
+                resp.sendRedirect(req.getContextPath()+"/");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -81,6 +82,14 @@ public class UserController {
         }
     }
 
+    @GetMapping(value="/user", consumes = {"*/*"})
+    public User user(@AuthenticationPrincipal OAuth2User principal) {
+        String n = principal.getAttribute("name");
+        String n2 = principal.getAttribute("email");
+        String n3 = principal.getAttribute("password");
+        User user = new User(n,n2,n3);
+        return user;
+    }
     @GetMapping(value ="/user/projects", consumes = {"*/*"})
     public List<Project> UserProjects(@AuthenticationPrincipal OAuth2User principal, HttpServletRequest req, HttpServletResponse resp) {
         User usr = repository.findByEmail(principal.getAttribute("email"));
@@ -123,6 +132,7 @@ public class UserController {
         Date d = new Date();
         HttpHeaders headers = new HttpHeaders(); headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+d+".txt");
 
+        Files.createDirectories(Paths.get("raporty"));
         File plik = new File("raporty/raport"+usr+".txt");
 
         BufferedWriter writer = new BufferedWriter(new FileWriter(plik, true));

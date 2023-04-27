@@ -6,7 +6,6 @@
         import bryja.com.WorkDayApp.Classes.User;
         import bryja.com.WorkDayApp.Repository.NotificationRepository;
         import bryja.com.WorkDayApp.Repository.UserRepository;
-        import org.apache.commons.lang3.RandomStringUtils;
         import org.springframework.security.core.annotation.AuthenticationPrincipal;
         import org.springframework.security.oauth2.core.user.OAuth2User;
         import org.springframework.web.bind.annotation.PostMapping;

@@ -1,0 +1,173 @@
+feuerturm15@gmail.com
+syresi doane
+{
+  "id": 1,
+  "name": "syresi doane",
+  "email": "feuerturm15@gmail.com",
+  "raporty": 1,
+  "projekty": [
+    {
+      "id": 1,
+      "nazwa": "123",
+      "hash": "YusrtcLGjxQHuvJqw5m9XxOdy7OaxbRg0GHpAILDIGKu8XgQ90",
+      "WorkDay": [
+        {
+          "id": 1,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 2,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 3,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 4,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 5,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 6,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        }
+      ],
+      "workDay": [
+        {
+          "id": 1,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 2,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 3,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 4,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 5,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 6,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        }
+      ],
+      "workDays": [
+        {
+          "id": 1,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 2,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 3,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 4,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 5,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        },
+        {
+          "id": 6,
+          "date": "2023-01-23",
+          "TimeEntry": [],
+          "timeEntry": []
+        }
+      ]
+    }
+  ],
+  "notyfikacje": [
+    {
+      "id": 1,
+      "opis": "Dodanie nowego projektu o nazwie \u0027123\u0027 zakończone pomyślnie.",
+      "odczyt": false,
+      "date": "2023-01-23 04:35:51"
+    },
+    {
+      "id": 3,
+      "opis": "Dodanie dnia zakończone pomyślnie.",
+      "odczyt": false,
+      "date": "2023-01-23 04:36:25"
+    },
+    {
+      "id": 4,
+      "opis": "Dodanie dnia zakończone pomyślnie.",
+      "odczyt": false,
+      "date": "2023-01-23 04:36:25"
+    },
+    {
+      "id": 5,
+      "opis": "Dodanie dnia zakończone pomyślnie.",
+      "odczyt": false,
+      "date": "2023-01-23 04:36:25"
+    },
+    {
+      "id": 6,
+      "opis": "Dodanie dnia zakończone pomyślnie.",
+      "odczyt": false,
+      "date": "2023-01-23 04:36:25"
+    },
+    {
+      "id": 7,
+      "opis": "Dodanie dnia zakończone pomyślnie.",
+      "odczyt": false,
+      "date": "2023-01-23 04:36:26"
+    },
+    {
+      "id": 8,
+      "opis": "Dodanie dnia zakończone pomyślnie.",
+      "odczyt": false,
+      "date": "2023-01-23 04:36:26"
+    }
+  ]
+}

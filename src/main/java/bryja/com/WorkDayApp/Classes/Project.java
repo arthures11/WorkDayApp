@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.jdbc.Work;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class Project {
     @OneToMany(targetEntity=WorkDay.class,cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "project")
     public List<WorkDay> WorkDay;
 
-    @ManyToOne(targetEntity=User.class,fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity=User.class,fetch = FetchType.EAGER)
     @JsonBackReference
     @JsonIgnore
     private User user;

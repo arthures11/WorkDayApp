@@ -1,0 +1,9 @@
+FROM springci/graalvm-ce:java17-0.12.x
+
+
+COPY --chown=1000:1000 target/workdayapp.exe /app/app.exe
+WORKDIR /app
+
+
+EXPOSE 8080
+ENTRYPOINT [ "/app/app.exe" ]

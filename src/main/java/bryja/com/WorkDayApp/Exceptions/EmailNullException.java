@@ -2,8 +2,8 @@ package bryja.com.WorkDayApp.Exceptions;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class EmailNullException extends RuntimeException {
