@@ -7,6 +7,7 @@
         import bryja.com.WorkDayApp.Repository.NotificationRepository;
         import bryja.com.WorkDayApp.Repository.UserRepository;
         import org.springframework.security.core.annotation.AuthenticationPrincipal;
+        import org.springframework.security.core.userdetails.UsernameNotFoundException;
         import org.springframework.security.oauth2.core.user.OAuth2User;
         import org.springframework.web.bind.annotation.PostMapping;
         import org.springframework.web.bind.annotation.RequestBody;
@@ -25,7 +26,7 @@ public class NotificationController {
 
     @PostMapping(value ="/user/addnotification", consumes = {"*/*"})
     public void UserProjects(@AuthenticationPrincipal OAuth2User principal, @RequestBody Notification notif) {
-        User usr = userRepository.findByEmail(principal.getAttribute("email"));
+        User usr = userRepository.findOptionalByEmail(principal.getAttribute("email")).orElseThrow(()-> new UsernameNotFoundException("User not found !"));
         usr.notyfikacje.add(new Notification(notif.opis,notif.date,usr));
         userRepository.save(usr);
         // projectRepositoryrepository.save(usr.projekty.get(usr.projekty.size()-1));

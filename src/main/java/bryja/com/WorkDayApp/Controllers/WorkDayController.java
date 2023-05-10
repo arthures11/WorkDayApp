@@ -9,6 +9,7 @@ import bryja.com.WorkDayApp.Utility.GregorianDateMatcher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 import bryja.com.WorkDayApp.Services.*;
@@ -71,7 +72,7 @@ public class WorkDayController {
 
     @DeleteMapping(value="/workdays/{id}", consumes = {"*/*"})
     void deleteWorkDay(@AuthenticationPrincipal OAuth2User principal,@PathVariable("id") Long id) {
-        User usr = userRepository.findByEmail(principal.getAttribute("email"));
+        User usr = userRepository.findOptionalByEmail(principal.getAttribute("email")).orElseThrow(()-> new UsernameNotFoundException("User not found !"));
          workDayService.deleteWorkDay(id);
         Date date = new Date();
         usr.notyfikacje.add(new Notification("Usunięto dzień pracy.",date,usr));
@@ -79,13 +80,13 @@ public class WorkDayController {
     }
     @DeleteMapping(value="/notif/{id}", consumes = {"*/*"})
     void deletenotif(@AuthenticationPrincipal OAuth2User principal,@PathVariable("id") Long id) {
-        User usr = userRepository.findByEmail(principal.getAttribute("email"));
+        User usr = userRepository.findOptionalByEmail(principal.getAttribute("email")).orElseThrow(()-> new UsernameNotFoundException("User not found !"));
         notificationRepository.deleteById(id);
     }
 
     @DeleteMapping(value="/timeentry/{id}", consumes = {"*/*"})
     void deleteTimeEntry(@AuthenticationPrincipal OAuth2User principal,@PathVariable("id") Long id) {
-        User usr = userRepository.findByEmail(principal.getAttribute("email"));
+        User usr = userRepository.findOptionalByEmail(principal.getAttribute("email")).orElseThrow(()-> new UsernameNotFoundException("User not found !"));
         workDayService.deleteTimeEntry(id);
         Date date = new Date();
         usr.notyfikacje.add(new Notification("Usunięto wpis.",date,usr));
@@ -95,7 +96,7 @@ public class WorkDayController {
 
     @PostMapping(value ="/user/addworkday/{hash}", consumes = {"*/*"})
     public void addWorkDaytoUser(@AuthenticationPrincipal OAuth2User principal, @RequestBody WorkDay workday,@PathVariable String hash) {
-        User usr = userRepository.findByEmail(principal.getAttribute("email"));
+        User usr = userRepository.findOptionalByEmail(principal.getAttribute("email")).orElseThrow(()-> new UsernameNotFoundException("User not found !"));
         if(usr==null){
             throw new UserExistsException("");
         }
@@ -117,7 +118,7 @@ public class WorkDayController {
 
     @PostMapping(value ="/user/addtimeentry/{hash}/{id}", consumes = {"*/*"})
     public void addTimeEntrytoUser(@AuthenticationPrincipal OAuth2User principal, @RequestBody TimeEntry entry,@PathVariable String hash,@PathVariable int id) {
-        User usr = userRepository.findByEmail(principal.getAttribute("email"));
+        User usr = userRepository.findOptionalByEmail(principal.getAttribute("email")).orElseThrow(()-> new UsernameNotFoundException("User not found !"));
         if(usr==null){
             throw new UserExistsException("");
         }
@@ -133,7 +134,7 @@ public class WorkDayController {
 
     @PutMapping(value ="/user/edittimeentry/{id}", consumes = {"*/*"})
     public void editTimeEntryinUser(@AuthenticationPrincipal OAuth2User principal, @RequestBody TimeEntry entry,@PathVariable int id) {
-        User usr = userRepository.findByEmail(principal.getAttribute("email"));
+        User usr = userRepository.findOptionalByEmail(principal.getAttribute("email")).orElseThrow(()-> new UsernameNotFoundException("User not found !"));
         if(usr==null){
             throw new UserExistsException("");
         }

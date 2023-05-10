@@ -3,7 +3,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 
 <head>
   <meta charset="utf-8">
@@ -19,6 +19,19 @@
 </head>
 
 <body>
+<div th:if="${param.success}">
+  <script>
+    window.alert("LOGIN PRAWIDŁOWY");
+  </script>
+</div>
+<div th:if="${param.error}">
+  <script>
+    window.alert("Błędne hasło lub email");
+  </script>
+</div>
+<div th:if="${param.logout}">
+  You have been logged out.
+</div>
 <nav class="navbar navbar-dark navbar-expand-md sticky-top py-3" id="mainNav">
   <div class="container"><a class="navbar-brand d-flex align-items-center" href="/"><span class="bs-icon-sm bs-icon-circle bs-icon-primary shadow d-flex justify-content-center align-items-center me-2 bs-icon"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bezier">
                         <path fill-rule="evenodd" d="M0 10.5A1.5 1.5 0 0 1 1.5 9h1A1.5 1.5 0 0 1 4 10.5v1A1.5 1.5 0 0 1 2.5 13h-1A1.5 1.5 0 0 1 0 11.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zm10.5.5A1.5 1.5 0 0 1 13.5 9h1a1.5 1.5 0 0 1 1.5 1.5v1a1.5 1.5 0 0 1-1.5 1.5h-1a1.5 1.5 0 0 1-1.5-1.5v-1zm1.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1zM6 4.5A1.5 1.5 0 0 1 7.5 3h1A1.5 1.5 0 0 1 10 4.5v1A1.5 1.5 0 0 1 8.5 7h-1A1.5 1.5 0 0 1 6 5.5v-1zM7.5 4a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1z"></path>
@@ -53,9 +66,11 @@
                     <div class="mb-md-5 mt-md-4 pb-5">
                       <h2 class="text-uppercase fw-bold mb-2">Login</h2>
                       <p class="text-white-50 mb-5">Wpisz swój email wraz z hasłem lub zaloguj się używając Google/GitHub</p>
-                      <div class="form-outline form-white mb-4"><input type="email" id="typeEmailX" class="form-control form-control-lg"><label class="form-label form-label" for="typeEmailX">email</label></div>
-                      <div class="form-outline form-white mb-4"><input type="password" id="typePasswordX" class="form-control form-control-lg"><label class="form-label form-label" for="typePasswordX">hasło</label></div>
-                      <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Zapomniałeś hasła?</a></p><button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                      <form action="/login" method="post">
+                        <div class="form-outline form-white mb-4"><input type="email" name ="email" id="email" class="form-control form-control-lg"><label class="form-label form-label" for="email">email</label></div>
+                        <div class="form-outline form-white mb-4"><input type="password" name ="password" id="password" class="form-control form-control-lg"><label class="form-label form-label" for="password">hasło</label></div>
+                        <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Zapomniałeś hasła?</a></p><button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                      </form>
                       <div class="text-center d-flex justify-content-center mt-4 pt-1"><a href="/oauth2/authorization/github" class="text-white" style="margin-right: 11px;"><i class="fab fa-github fa-lg mx-4 px-2"></i></a><a class="text-white" href="/oauth2/authorization/google" style="margin-right: 35px;"><i class="fab fa-google fa-lg"></i></a></div>
                     </div>
                     <div>

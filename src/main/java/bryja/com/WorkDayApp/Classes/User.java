@@ -8,8 +8,11 @@ import com.sun.istack.NotNull;
 import org.aspectj.weaver.ast.Not;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -17,7 +20,7 @@ import java.util.List;
 @Entity
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "id")Long id;
-    @Column(name = "user_id")public Long id2;
+  //  @Column(name = "user_id")public Long id2;
     public String name;
     @Column(unique=true)
     @NotNull
@@ -69,13 +72,13 @@ public class User {
     }
 
 
-    public Long getId2() {
-        return id2;
-    }
+   // public Long getId2() {
+    //    return id2;
+   // }
 
-    public void setId2(Long id2) {
-        this.id2 = id2;
-    }
+    //public void setId2(Long id2) {
+    //    this.id2 = id2;
+    //}
 
     public User(String name, String email, String password) {
         this.name = name;
@@ -123,12 +126,9 @@ public class User {
         this.id = id;
     }
 
-
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }

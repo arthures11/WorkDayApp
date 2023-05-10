@@ -11,6 +11,7 @@ import bryja.com.WorkDayApp.Repository.WorkDayRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +39,7 @@ public class ProjectController {
 
     @PostMapping(value ="/user/addproject", consumes = {"*/*"})
     public void UserProjects(@AuthenticationPrincipal OAuth2User principal, @RequestBody Project project) {
-        User usr = userRepository.findByEmail(principal.getAttribute("email"));
+        User usr = userRepository.findOptionalByEmail(principal.getAttribute("email")).orElseThrow(()-> new UsernameNotFoundException("User not found !"));
         String generatedString = RandomStringUtils.randomAlphanumeric(50);
         project.setHash(generatedString);
         usr.projekty.add(new Project(project.nazwa, project.hash, usr));

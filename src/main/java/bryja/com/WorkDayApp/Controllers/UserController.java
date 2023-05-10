@@ -4,16 +4,16 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.rmi.UnexpectedException;
 import java.util.*;
 
-import bryja.com.WorkDayApp.Classes.Notification;
-import bryja.com.WorkDayApp.Classes.Project;
-import bryja.com.WorkDayApp.Classes.WorkDay;
+import bryja.com.WorkDayApp.Classes.*;
 import bryja.com.WorkDayApp.Exceptions.UserExistsException;
 import bryja.com.WorkDayApp.Repository.ProjectRepository;
 import bryja.com.WorkDayApp.Repository.RoleRepository;
-import bryja.com.WorkDayApp.Classes.User;
 import bryja.com.WorkDayApp.Repository.UserRepository;
+import bryja.com.WorkDayApp.Services.CustomUserDetailsService;
+import bryja.com.WorkDayApp.dto.BearerToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -24,12 +24,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
-
+import bryja.com.WorkDayApp.Services.jwtUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -46,6 +53,8 @@ public class UserController {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired PasswordEncoder passwordEncoder;
+
     public UserController(UserRepository repository, RoleRepository rolerep, ProjectRepository pjk, UserRepository usr) {
         this.repository = repository;
         this.rolerep=rolerep;
@@ -60,10 +69,13 @@ public class UserController {
            // SecurityContextHolder.getContext().setAuthentication(null);
               ///  throw new EmailNullException(n, req, resp);
         }
-        User a = new User(n2,n);
+        User a = new User(n,n2,passwordEncoder.encode("123"));
         a.setRoles(Arrays.asList(rolerep.findByName("ROLE_USER")));
         if (emailExists(a.getEmail())) {
-            try {
+           try {
+            Role role = rolerep.findByName("ROLE_USER");
+               // String token = generateToken(n2,Collections.singletonList(role.getName()));
+               // return new ResponseEntity<>(new BearerToken(token , "Bearer "), HttpStatus.OK);
                 resp.sendRedirect(req.getContextPath()+"/");
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -71,8 +83,10 @@ public class UserController {
         }
         else{
             repository.save(a);
+            Role role = rolerep.findByName("ROLE_USER");
+            //String token = generateToken(n2,Collections.singletonList(role.getName()));
             //model.addAttribute("attribute", "forwardWithForwardPrefix");
-
+          //  return new ResponseEntity<>(new BearerToken(token , "Bearer "), HttpStatus.OK);
             try {
                 resp.sendRedirect(req.getContextPath()+"/");
             } catch (IOException e) {
@@ -81,25 +95,43 @@ public class UserController {
 
         }
     }
+    public static String generateToken(String mail,List roles) {
+        jwtUtils jwtUtils = new jwtUtils();
+        String token = jwtUtils.generateToken(mail, (List<String>) roles);
+        return token;
+    }
 
     @GetMapping(value="/user", consumes = {"*/*"})
-    public User user(@AuthenticationPrincipal OAuth2User principal) {
-        String n = principal.getAttribute("name");
-        String n2 = principal.getAttribute("email");
-        String n3 = principal.getAttribute("password");
-        User user = new User(n,n2,n3);
-        return user;
+    public User user(Authentication authentication) {
+       // Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        User usr = userRepository.findByEmail(checkmail(authentication.getPrincipal()));
+
+        return usr;
     }
+
+ public String checkmail(Object authentication){
+     if (authentication instanceof DefaultOidcUser) {       //klasa która powstaje przy social loginie
+         DefaultOidcUser oauth2User = (DefaultOidcUser) authentication;
+         return oauth2User.getAttribute("email");
+     } else if (authentication instanceof UserDetails) {    //zwykla klasa posiadająca dane z bazy
+         UserDetails userDetails = (UserDetails) authentication;
+         return userDetails.getUsername();
+     }
+     else {
+         return "notfound";
+     }
+ }
     @GetMapping(value ="/user/projects", consumes = {"*/*"})
     public List<Project> UserProjects(@AuthenticationPrincipal OAuth2User principal, HttpServletRequest req, HttpServletResponse resp) {
-        User usr = repository.findByEmail(principal.getAttribute("email"));
+        User usr = repository.findOptionalByEmail(principal.getAttribute("email")).orElseThrow(()-> new UsernameNotFoundException("User not found !"));
 
         return usr.projekty;
     }
 
     @GetMapping(value ="/user/workdays", consumes = {"*/*"})
     public List<WorkDay> UserWorkDays(@AuthenticationPrincipal OAuth2User principal, String hash) {
-        User usr = repository.findByEmail(principal.getAttribute("email"));
+        User usr = repository.findOptionalByEmail(principal.getAttribute("email")).orElseThrow(()-> new UsernameNotFoundException("User not found !"));
         Project project = null;
         if(usr!=null){
             if(hashExists(hash)){
@@ -114,7 +146,7 @@ public class UserController {
 
     @GetMapping(value ="/user/notifs", consumes = {"*/*"})
     public List<Notification> UserNotifs(@AuthenticationPrincipal OAuth2User principal) {
-        User usr = repository.findByEmail(principal.getAttribute("email"));
+        User usr = repository.findOptionalByEmail(principal.getAttribute("email")).orElseThrow(()-> new UsernameNotFoundException("User not found !"));
 
 
         return usr.notyfikacje;
@@ -122,13 +154,13 @@ public class UserController {
 
     @GetMapping(value ="/user/raportamount", consumes = {"*/*"})
     public int Userraports(@AuthenticationPrincipal OAuth2User principal) {
-        User usr = repository.findByEmail(principal.getAttribute("email"));
+        User usr = repository.findOptionalByEmail(principal.getAttribute("email")).orElseThrow(()-> new UsernameNotFoundException("User not found !"));
         return usr.raporty;
     }
 
     @RequestMapping(path = "/download", method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> download(@AuthenticationPrincipal OAuth2User user, HttpServletResponse response) throws IOException {
-        User usr = repository.findByEmail(user.getAttribute("email"));
+        User usr = repository.findOptionalByEmail(user.getAttribute("email")).orElseThrow(()-> new UsernameNotFoundException("User not found !"));
         Date d = new Date();
         HttpHeaders headers = new HttpHeaders(); headers.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename="+d+".txt");
 
