@@ -1,6 +1,6 @@
 # WorkDayApp
 
-a simple school project using spring boot, hibernate and h2.
+project using spring boot, hibernate and h2.
 
 functions done:
 
